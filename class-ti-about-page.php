@@ -556,16 +556,16 @@ class Ti_About_Page {
 		}
 
 		// this is needed on all admin pages, not just the about page, for the badge action count in the WordPress main sidebar
-		wp_enqueue_style( 'ti-about-page-css', get_template_directory_uri() . '/inc/admin/about/css/ti_about_page_css.css', array(), NEVE_VERSION );
+		wp_enqueue_style( 'ti-about-page-css', TI_ABOUT_PAGE_URL . 'css/ti_about_page_css.css', array(), TI_ABOUT_PAGE_VERSION );
 
 		wp_enqueue_script(
 			'ti-about-page-js',
-			get_template_directory_uri() . '/inc/admin/about/js/ti_about_page_scripts.js',
+			TI_ABOUT_PAGE_URL . '/js/ti_about_page_scripts.js',
 			array(
 				'jquery',
 				'jquery-ui-tabs',
 			),
-			NEVE_VERSION
+			TI_ABOUT_PAGE_VERSION
 		);
 		wp_enqueue_style( 'plugin-install' );
 		wp_enqueue_script( 'plugin-install' );

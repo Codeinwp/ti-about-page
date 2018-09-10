@@ -128,7 +128,7 @@ class Ti_About_Plugin_Helper {
 				break;
 
 			case 'enable_cpt':
-				$url     = admin_url( 'admin.php?page=jetpack#/settings' );
+				$url    = admin_url( 'admin.php?page=jetpack#/settings' );
 				$button .= '<a  data-redirect="' . esc_url( $redirect ) . '" class="button" href="' . esc_url( $url ) . '">' . esc_html__( 'Activate', 'neve' ) . ' ' . esc_html__( 'Jetpack Portfolio', 'neve' ) . '</a>';
 				break;
 		}// End switch().
@@ -164,7 +164,7 @@ class Ti_About_Plugin_Helper {
 	 * Enqueue Function.
 	 */
 	public function enqueue_scripts() {
-		wp_register_script( 'neve-plugin-install', get_template_directory_uri() . '/inc/admin/plugin_install/plugin-install.js', array( 'jquery' ), NEVE_VERSION, true );
+		wp_register_script( 'neve-plugin-install', TI_ABOUT_PAGE_URL . '/js/plugin-install.js', array( 'jquery' ), TI_ABOUT_PAGE_VERSION, true );
 
 		wp_localize_script(
 			'neve-plugin-install',
