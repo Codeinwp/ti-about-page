@@ -224,7 +224,9 @@ class Ti_About_Page {
 			echo '</div>';
 		}
 	}
+}
 
+class Ti_About_Page_Render {
 	/**
 	 * Render the main content page.
 	 */
@@ -238,14 +240,14 @@ class Ti_About_Page {
 	 */
 	private function render_header() {
 		?>
-		<div class="about-loading loading">
-			<div class="about-loader">
-				<div class="loader-content">
-					<p><i class="dashicons dashicons-update"></i><span><?php echo __( 'Loading...', 'neve' ); ?></span>
-					</p>
-				</div>
-			</div>
-		</div>
+        <div class="about-loading loading">
+            <div class="about-loader">
+                <div class="loader-content">
+                    <p><i class="dashicons dashicons-update"></i><span><?php echo __( 'Loading...', 'neve' ); ?></span>
+                    </p>
+                </div>
+            </div>
+        </div>
 		<?php
 		if ( ! empty( $this->config['welcome_title'] ) ) {
 			$title = $this->config['welcome_title'];
@@ -296,8 +298,8 @@ class Ti_About_Page {
 		$actions_badge = $count > 0 ? '<span class="badge-action-count">' . esc_html( $count ) . '</span>' : '';
 		?>
 
-		<div id="about_tabs">
-			<ul class="nav-tab-wrapper wp-clearfix">
+        <div id="about_tabs">
+            <ul class="nav-tab-wrapper wp-clearfix">
 				<?php
 				foreach ( $this->tabs as $tab_id => $tab_name ) {
 					if ( $tab_id === 'recommended_actions' ) {
@@ -307,14 +309,14 @@ class Ti_About_Page {
 						}
 					}
 					?>
-					<li style="margin-bottom: 0;" data-tab-id="<?php echo esc_attr( $tab_id ); ?>"><a class="nav-tab"
-								href="#<?php echo esc_attr( $tab_id ); ?>"><?php echo wp_kses_post( $tab_name ); ?></a>
-					</li>
+                    <li style="margin-bottom: 0;" data-tab-id="<?php echo esc_attr( $tab_id ); ?>"><a class="nav-tab"
+                                                                                                      href="#<?php echo esc_attr( $tab_id ); ?>"><?php echo wp_kses_post( $tab_name ); ?></a>
+                    </li>
 					<?php
 				}
 				do_action( 'ti_about_page_after_tabs' );
 				?>
-			</ul>
+            </ul>
 
 			<?php
 			foreach ( $this->tabs as $tab_id => $tab_name ) {
@@ -324,14 +326,14 @@ class Ti_About_Page {
 					}
 				}
 				?>
-				<div id="<?php echo esc_attr( $tab_id ); ?>">
+                <div id="<?php echo esc_attr( $tab_id ); ?>">
 					<?php call_user_func( array( $this, $tab_id . '_render' ) ); ?>
-				</div>
+                </div>
 				<?php
 			}
 			do_action( 'ti_about_page_after_tabs_content' )
 			?>
-		</div>
+        </div>
 		<?php
 	}
 
@@ -585,7 +587,8 @@ class Ti_About_Page {
 
 		Ti_About_Plugin_Helper::instance()->enqueue_scripts();
 	}
-
+}
+class Ti_About_Page_Required_Actions {
 	/**
 	 * Return the valid array of required actions.
 	 *
@@ -662,7 +665,13 @@ class Ti_About_Page {
 			}
 		}// End if().
 	}
+}
 
+class Ti_About_Page_Tab_Content {
+
+    public function render_tabs(){
+
+    }
 	/**
 	 * Getting started tab content
 	 */
