@@ -49,8 +49,11 @@ class TI_About_Render {
 		echo '<div class="wrap about-wrap">';
 		$this->render_header();
 
+		echo '<div id="about-tabs">';
+
 		$this->render_tabs_list();
 		$this->render_tabs_content();
+		echo '</div>';
 		echo '</div>';
 	}
 
@@ -76,14 +79,14 @@ class TI_About_Render {
 
 	    echo '<ul class="nav-tab-wrapper wp-clearfix">';
 		foreach( $this->tabs as $slug => $tab_data ) {
-            echo '<li data-tab-id="' . esc_attr( $slug ) . '">';
-            echo esc_html( $tab_data['title'] );
+            echo '<li data-tab-id="' . esc_attr( $slug ) . ' ">';
+            echo '<a class="nav-tab" href="#' . esc_attr( $slug ) .'">' . esc_html( $tab_data['title'] ) . '</a>';
             echo '</li>';
 		}
 
 		foreach( $this->custom_tabs as $slug => $tab_data ) {
             echo '<li data-tab-id="' . esc_attr( $slug ) . '">';
-            echo esc_html( $tab_data['title'] );
+			echo '<a class="nav-tab" href="#' . esc_attr( $slug ) .'">' . esc_html( $tab_data['title'] ) . '</a>';
             echo '</li>';
 		}
 		echo '</ul>';
@@ -151,6 +154,8 @@ class TI_About_Render {
             return;
         }
 
+        echo '<div class="recommended-plugins">';
+
 		foreach ( $plugins_list as $plugin ) {
 			$current_plugin = $this->call_plugin_api( $plugin );
 
@@ -160,12 +165,16 @@ class TI_About_Render {
 			        echo '<span class="plugin-name">' . esc_html( $current_plugin->name ) . '</span>';
 			        echo '<span class="plugin-desc">' . esc_html( $current_plugin->short_description ) . '</span>';
 			    echo '</div>';
-                echo '<div class="button-wrap">';
+			    echo '<div class="plugin-box-footer">';
+                    echo '<div class="button-wrap">';
 			        echo Ti_About_Plugin_Helper::instance()->get_button_html( $plugin );
                     echo '</div>';
-                echo '<div class="version-wrapper">' . esc_html( $current_plugin->version ) . '</div>';
+                    echo '<div class="version-wrapper"><span class="version">' . esc_html( $current_plugin->version ) . '</span><span class="separator"> | </span>' . strtok( strip_tags( $current_plugin->author ), ',' ) . '</div>';
+                echo '</div>';
 			echo '</div>';
 		}
+
+		echo '</div>';
 	}
 
 	/**

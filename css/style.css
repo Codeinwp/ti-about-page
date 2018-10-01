@@ -14,7 +14,7 @@
 	overflow: hidden;
 }
 
-#support i.dashicons {
+.about-col i.dashicons {
 	position: relative;
 	top: 5px;
 	color: #666;
@@ -31,6 +31,7 @@
 .header .neve-about-text {
 	font-size: 16px;
 }
+
 
 .nav-tab {
 	margin: 0 0 -1px 0;
@@ -49,18 +50,18 @@
 	box-shadow: none;
 }
 
-#about_tabs li:last-child .nav-tab {
+#about-tabs li:last-child .nav-tab {
 	border-right: 1px solid #ccc;
 }
 
-#about_tabs > div {
+#about-tabs > div {
 	background: #fff;
 	padding: 20px 20px;
 	border: 1px solid #ccc;
 	border-top: none;
 }
 
-#about_tabs .ui-state-active a {
+#about-tabs .ui-state-active a {
 	background: #fff;
 	border-bottom-color: #fff;
 	color: #00a4e7;
@@ -386,4 +387,49 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+
+#about-tabs ul li:first-of-type {
+	margin-bottom: -6px;
+}
+
+#about-tabs .columns-3 {
+	display: grid;
+	grid-template-columns: repeat( 3, 1fr );
+}
+#about-tabs .columns-3 .about-col {
+
+}
+
+#about-tabs .columns-2 {
+	display: grid;
+	grid-template-columns: repeat( 2, 1fr );
+}
+#about-tabs .columns-2 .about-col {
+
+}
+
+#about-tabs .columns-1 {
+	display: grid;
+	grid-template-columns: 1fr;
+}
+#about-tabs .columns-1 .about-col {
+
+}
+
+@media ( max-width: 992px ) {
+	#about-tabs .columns-3,
+	#about-tabs .columns-2 {
+		display: grid;
+		grid-template-columns: 1fr;
+	}
+
+	.about-col {
+		padding-bottom: 30px;
+		border-bottom: 1px solid #ededed;
+	}
+	.about-col:last-of-type {
+		border-bottom: none
+	}
 }

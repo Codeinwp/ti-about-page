@@ -120,6 +120,6 @@ class Ti_About_Page {
 		$scripts_src = get_stylesheet_directory_uri() . '/vendor/codeinwp/ti-about-page/js/ti_about_page_scripts.js';
 
 		wp_enqueue_style( $handle, $src, array(), $version );
-		wp_enqueue_script( $scripts_handle, $scripts_src, array(), $version, true );
+		wp_enqueue_script( $scripts_handle, $scripts_src, array( 'jquery', 'jquery-ui-tabs' ), $version, true );
 	}
 }

@@ -1,15 +1,12 @@
 /**
- * Main scripts file for the About Neve Page
- *
- * @package neve
+ * Main scripts file for the About Page
  */
 
 /* global tiAboutPageObject */
 /* global console */
-
 jQuery( document ).ready(
 	function () {
-		jQuery( '#about_tabs' ).tabs();
+		jQuery( '#about-tabs' ).tabs();
 		handleLinkingInTabs();
 		startLoader();
 
