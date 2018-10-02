@@ -123,7 +123,7 @@ class Ti_About_Page {
 //				'nr_actions_required' => count( $required_actions ),
 				'ajaxurl'             => admin_url( 'admin-ajax.php' ),
 				'template_directory'  => get_template_directory_uri(),
-				'activating_string'   => esc_html__( 'Activating', 'neve' ),
+				'activating_string'   => esc_html__( 'Activating', 'textdomain' ),
 			)
 		);
 

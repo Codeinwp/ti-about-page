@@ -6,7 +6,7 @@
 	background-size: 70%;
 }
 
-.neve-about-text {
+.ti-about-header-text {
 	text-overflow: ellipsis;
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
@@ -28,7 +28,7 @@
 .header h1 {
 	font-size: 30px;
 }
-.header .neve-about-text {
+.header .ti-about-header-text {
 	font-size: 16px;
 }
 

@@ -105,11 +105,11 @@ class Ti_About_Plugin_Helper {
 		);
 		switch ( $state ) {
 			case 'install':
-				$button .= '<a data-redirect="' . esc_url( $redirect ) . '" data-slug="' . esc_attr( $slug ) . '" class="install-now neve-install-plugin button  " href="' . esc_url( $nonce ) . '" data-name="' . esc_attr( $slug ) . '" aria-label="Install ' . esc_attr( $slug ) . '">' . __( 'Install and activate', 'neve' ) . '</a>';
+				$button .= '<a data-redirect="' . esc_url( $redirect ) . '" data-slug="' . esc_attr( $slug ) . '" class="install-now ti-about-install-plugin button  " href="' . esc_url( $nonce ) . '" data-name="' . esc_attr( $slug ) . '" aria-label="Install ' . esc_attr( $slug ) . '">' . __( 'Install and activate', 'textdomain' ) . '</a>';
 				break;
 
 			case 'activate':
-				$button .= '<a  data-redirect="' . esc_url( $redirect ) . '" data-slug="' . esc_attr( $slug ) . '" class="activate-now button button-primary" href="' . esc_url( $nonce ) . '" aria-label="Activate ' . esc_attr( $slug ) . '">' . esc_html__( 'Activate', 'neve' ) . '</a>';
+				$button .= '<a  data-redirect="' . esc_url( $redirect ) . '" data-slug="' . esc_attr( $slug ) . '" class="activate-now button button-primary" href="' . esc_url( $nonce ) . '" aria-label="Activate ' . esc_attr( $slug ) . '">' . esc_html__( 'Activate', 'textdomain' ) . '</a>';
 				break;
 
 			case 'deactivate':
@@ -124,12 +124,12 @@ class Ti_About_Plugin_Helper {
 					network_admin_url( 'plugins.php' )
 				);
 
-				$button .= '<a  data-redirect="' . esc_url( $redirect ) . '" data-slug="' . esc_attr( $slug ) . '" class="deactivate-now button" href="' . esc_url( $nonce ) . '" data-name="' . esc_attr( $slug ) . '" aria-label="Deactivate ' . esc_attr( $slug ) . '">' . esc_html__( 'Deactivate', 'neve' ) . '</a>';
+				$button .= '<a  data-redirect="' . esc_url( $redirect ) . '" data-slug="' . esc_attr( $slug ) . '" class="deactivate-now button" href="' . esc_url( $nonce ) . '" data-name="' . esc_attr( $slug ) . '" aria-label="Deactivate ' . esc_attr( $slug ) . '">' . esc_html__( 'Deactivate', 'textdomain' ) . '</a>';
 				break;
 
 			case 'enable_cpt':
 				$url    = admin_url( 'admin.php?page=jetpack#/settings' );
-				$button .= '<a  data-redirect="' . esc_url( $redirect ) . '" class="button" href="' . esc_url( $url ) . '">' . esc_html__( 'Activate', 'neve' ) . ' ' . esc_html__( 'Jetpack Portfolio', 'neve' ) . '</a>';
+				$button .= '<a  data-redirect="' . esc_url( $redirect ) . '" class="button" href="' . esc_url( $url ) . '">' . esc_html__( 'Activate', 'textdomain' ) . ' ' . esc_html__( 'Jetpack Portfolio', 'textdomain' ) . '</a>';
 				break;
 		}// End switch().
 		$button .= '</div>';
@@ -170,7 +170,7 @@ class Ti_About_Plugin_Helper {
 			'ti-about-plugin-install',
 			'tiAboutPluginInstall',
 			array(
-				'activating' => esc_html__( 'Activating ', 'neve' ),
+				'activating' => esc_html__( 'Activating ', 'textdomain' ),
 			)
 		);
 
