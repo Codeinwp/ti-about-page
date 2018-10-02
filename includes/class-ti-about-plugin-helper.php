@@ -22,7 +22,7 @@ class Ti_About_Plugin_Helper {
 	/**
 	 * Check if instance already exists.
 	 *
-	 * @return Ti_About_Page_Plugin_Helper;
+	 * @return Ti_About_Plugin_Helper;
 	 */
 	public static function instance() {
 		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Ti_About_Plugin_Helper ) ) {
@@ -164,11 +164,11 @@ class Ti_About_Plugin_Helper {
 	 * Enqueue Function.
 	 */
 	public function enqueue_scripts() {
-		wp_register_script( 'neve-plugin-install', TI_ABOUT_PAGE_URL . '/js/plugin-install.js', array( 'jquery' ), TI_ABOUT_PAGE_VERSION, true );
+		wp_register_script( 'ti-about-plugin-install', TI_ABOUT_PAGE_URL . '/js/plugin-install.js', array( 'jquery' ), TI_ABOUT_PAGE_VERSION, true );
 
 		wp_localize_script(
-			'neve-plugin-install',
-			'nevePluginInstall',
+			'ti-about-plugin-install',
+			'tiAboutPluginInstall',
 			array(
 				'activating' => esc_html__( 'Activating ', 'neve' ),
 			)
@@ -176,6 +176,6 @@ class Ti_About_Plugin_Helper {
 
 		wp_enqueue_script( 'plugin-install' );
 		wp_enqueue_script( 'updates' );
-		wp_enqueue_script( 'neve-plugin-install' );
+		wp_enqueue_script( 'ti-about-plugin-install' );
 	}
 }

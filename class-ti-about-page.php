@@ -18,7 +18,7 @@ class Ti_About_Page {
 	private $theme_args = array();
 
 	/**
-	 * About page content that shuold be rendered
+	 * About page content that should be rendered
 	 */
     private $config = array();
 
@@ -37,7 +37,7 @@ class Ti_About_Page {
 		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Ti_About_Page ) ) {
 			self::$instance = new Ti_About_Page();
 			if ( ! empty( $config ) && is_array( $config ) ) {
-				self::$instance->config = $config;
+				self::$instance->config = apply_filters( 'ti_about_config_filter', $config ) ;
 				self::$instance->setup_config();
 				self::$instance->setup_actions();
 			}
@@ -112,14 +112,23 @@ class Ti_About_Page {
 			return;
 		}
 
-		$handle = $this->theme_args['slug'] . '-about-style';
-		$src = get_stylesheet_directory_uri() . '/vendor/codeinwp/ti-about-page/css/style.css';
-		$version = $this->theme_args['version'];
+		wp_enqueue_style( 'ti-about-style', TI_ABOUT_PAGE_URL . '/css/style.css', array(), TI_ABOUT_PAGE_VERSION );
 
-		$scripts_handle = $this->theme_args['slug'] . '-about-scripts';
-		$scripts_src = get_stylesheet_directory_uri() . '/vendor/codeinwp/ti-about-page/js/ti_about_page_scripts.js';
+		wp_register_script( 'ti-about-scripts', TI_ABOUT_PAGE_URL . '/js/ti_about_page_scripts.js', array( 'jquery', 'jquery-ui-tabs' ), TI_ABOUT_PAGE_VERSION, true );
 
-		wp_enqueue_style( $handle, $src, array(), $version );
-		wp_enqueue_script( $scripts_handle, $scripts_src, array( 'jquery', 'jquery-ui-tabs' ), $version, true );
+		wp_localize_script(
+			'ti-about-scripts',
+			'tiAboutPageObject',
+			array(
+//				'nr_actions_required' => count( $required_actions ),
+				'ajaxurl'             => admin_url( 'admin-ajax.php' ),
+				'template_directory'  => get_template_directory_uri(),
+				'activating_string'   => esc_html__( 'Activating', 'neve' ),
+			)
+		);
+
+		wp_enqueue_script( 'ti-about-scripts' );
+		Ti_About_Plugin_Helper::instance()->enqueue_scripts();
+
 	}
 }

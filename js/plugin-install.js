@@ -2,7 +2,7 @@
  * Remove activate button and replace with activation in progress button.
  */
 
-/* global nevePluginInstall */
+/* global tiAboutPluginInstall */
 /* global console */
 
 jQuery( document ).ready(
@@ -27,7 +27,7 @@ jQuery( document ).ready(
 						{
 							slug: slug,
 							success: function () {
-								button.text( nevePluginInstall.activating + '...' );
+								button.text( tiAboutPluginInstall.activating + '...' );
 								self.activatePlugin( url, redirect );
 							}
 						}
@@ -83,7 +83,7 @@ jQuery( document ).ready(
 					var url = button.attr( 'href' );
 					var redirect = button.attr( 'data-redirect' );
 					button.addClass( 'updating-message' );
-					button.text( nevePluginInstall.activating + '...' );
+					button.text( tiAboutPluginInstall.activating + '...' );
 					self.activatePlugin( url, redirect );
 				} );
 			},
