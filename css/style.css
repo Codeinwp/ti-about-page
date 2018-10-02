@@ -398,24 +398,20 @@
 	display: grid;
 	grid-template-columns: repeat( 3, 1fr );
 }
-#about-tabs .columns-3 .about-col {
-
-}
-
 #about-tabs .columns-2 {
 	display: grid;
 	grid-template-columns: repeat( 2, 1fr );
 }
-#about-tabs .columns-2 .about-col {
-
-}
-
 #about-tabs .columns-1 {
 	display: grid;
 	grid-template-columns: 1fr;
 }
+#about-tabs .columns-3 .about-col,
+#about-tabs .columns-2 .about-col,
 #about-tabs .columns-1 .about-col {
-
+	padding-bottom: 30px;
+	padding-left: 15px;
+	padding-right: 15px;
 }
 
 @media ( max-width: 992px ) {
