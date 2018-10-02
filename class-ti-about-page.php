@@ -23,6 +23,11 @@ class Ti_About_Page {
     private $config = array();
 
 	/**
+	 * Recommended actions uncompleted
+	 */
+    private $required_actions = 0;
+
+	/**
 	 * About Page instance
 	 */
     private static $instance;
@@ -40,6 +45,7 @@ class Ti_About_Page {
 				self::$instance->config = apply_filters( 'ti_about_config_filter', $config ) ;
 				self::$instance->setup_config();
 				self::$instance->setup_actions();
+				self::$instance->recommended_actions_left();
 			}
 		}
 	}
@@ -99,6 +105,40 @@ class Ti_About_Page {
 	}
 
 	/**
+	 * Utility function for checking the number of recommended actions uncompleted
+	 */
+	public function recommended_actions_left() {
+
+		$actions_left = 0;
+		$nb_of_actions = 0;
+		$plugin_helper = new Ti_About_Plugin_Helper();
+
+		foreach( $this->config as $index => $content ) {
+			if ( isset( $content['type'] ) && $content['type'] === 'recommended_actions' ) {
+				$plugins = $content['plugins'];
+				break;
+			}
+		}
+
+		if ( ! empty( $plugins ) ) {
+			foreach ( $plugins as $plugin ) {
+				$nb_of_actions += 1;
+				if ( $plugin_helper->check_plugin_state( $plugin['slug'] ) === 'deactivate' ) {
+					$actions_left += 1;
+				}
+			}
+		}
+
+		if ( $actions_left !== $nb_of_actions ) {
+			$this->required_actions =  $actions_left;
+			return;
+		}
+
+		$this->required_actions = 0;
+		return;
+	}
+
+	/**
 	 * Load css and scripts for the about page
 	 */
 	public function enqueue() {
@@ -120,7 +160,7 @@ class Ti_About_Page {
 			'ti-about-scripts',
 			'tiAboutPageObject',
 			array(
-//				'nr_actions_required' => count( $required_actions ),
+				'nr_actions_required' => $this->required_actions,
 				'ajaxurl'             => admin_url( 'admin-ajax.php' ),
 				'template_directory'  => get_template_directory_uri(),
 				'activating_string'   => esc_html__( 'Activating', 'textdomain' ),

@@ -4,11 +4,17 @@
 
 /* global tiAboutPageObject */
 /* global console */
+
 jQuery( document ).ready(
 	function () {
 		jQuery( '#about-tabs' ).tabs();
 		handleLinkingInTabs();
 		startLoader();
+
+		/* Show required actions next to page title and tab title */
+		if ( tiAboutPageObject.nr_actions_required > 0 ) {
+			jQuey( '#recommended_actions' ).append( '<span class="badge-action-count">' + tiAboutPageObject.nr_actions_required + '</span>' );
+		}
 
 		/* Dismiss required actions */
 		jQuery( '.ti-about-page-required-action-button' ).click(
