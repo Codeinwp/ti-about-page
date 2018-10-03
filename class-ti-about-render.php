@@ -137,8 +137,15 @@ class TI_About_Render {
 			return;
 		}
 
+		$recommended_plugins_visbility = get_option( 'recommended_plugins' );
+
         foreach ( $plugins_list as $slug => $plugin ) {
-		    echo '<div class="ti-about-page-action-required-box">';
+            if( $recommended_plugins_visbility[$slug] === 'hidden' ) {
+                continue;
+            }
+
+		    echo '<div class="ti-about-page-action-required-box ' . esc_attr( $slug ) . '">';
+		    echo '<span class="dashicons dashicons-visibility ti-about-page-required-action-button" data-slug="' . esc_attr( $slug ) . '"></span>';
 		    echo '<h3>' . $plugin['name'] . '</h3>';
 		    echo '<p>' . $plugin['description'] . '</p>';
 	        echo Ti_About_Plugin_Helper::instance()->get_button_html( $slug );

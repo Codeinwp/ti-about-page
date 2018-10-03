@@ -14,39 +14,59 @@ jQuery( document ).ready(
 		/* Show required actions next to page title and tab title */
 		if ( tiAboutPageObject.nr_actions_required > 0 ) {
 			jQuery( '#about-tabs ul li > .recommended_actions' ).append( '<span class="badge-action-count">' + tiAboutPageObject.nr_actions_required + '</span>' );
-			if( jQuery( '.wp-submenu li.current a' ).text() === tiAboutPageObject.menu_name ) {
-                jQuery( '.wp-submenu li.current a' ).append( '<span class="badge-action-count">' + tiAboutPageObject.nr_actions_required + '</span>' );
-			}
 		}
 
+        jQuery( '.ti-about-page-required-action-button' ).click( function() {
+
+            var plugin_slug = jQuery( this ).attr( 'data-slug' );
+
+            jQuery.ajax(
+                {
+                    type: 'POST',
+                    data: { action: 'update_recommended_plugins_visibility', slug: plugin_slug },
+                    url: tiAboutPageObject.ajaxurl,
+                    success: function(r) {
+                    	alert( tiAboutPageObject.nr_actions_required );
+						jQuery( '.' + plugin_slug ).hide();
+                        jQuery( '#about-tabs ul li > .recommended_actions span' ).text( tiAboutPageObject.nr_actions_required );
+                        jQuery( '#adminmenu .wp-submenu li a span.badge-action-count' ).text( tiAboutPageObject.nr_actions_required );
+                    },
+                    error: function ( jqXHR, textStatus, errorThrown ) {
+                        console.log( jqXHR + ' :: ' + textStatus + ' :: ' + errorThrown );
+                    }
+                }
+			);
+		} );
+
 		/* Dismiss required actions */
-		jQuery( '.ti-about-page-required-action-button' ).click(
-			function () {
-
-				var id = jQuery( this ).attr( 'id' ),
-					action = jQuery( this ).attr( 'data-action' );
-
-				jQuery.ajax(
-					{
-						type: 'GET',
-						data: { action: 'ti_about_page_dismiss_required_action', id: id, todo: action },
-						dataType: 'html',
-						url: tiAboutPageObject.ajaxurl,
-						beforeSend: function () {
-							jQuery( '.ti-about-page-tab-pane#actions_required h1' ).append( '<div id="temp_load" style="text-align:center"><img src="' + tiAboutPageObject.template_directory + '/assests/img/ajax-loader.gif" /></div>' );
-						},
-						success: function () {
-							location.reload();
-							jQuery( '#temp_load' ).remove();
-							/* Remove loading gif */
-						},
-						error: function ( jqXHR, textStatus, errorThrown ) {
-							console.log( jqXHR + ' :: ' + textStatus + ' :: ' + errorThrown );
-						}
-					}
-				);
-			}
-		);
+		// jQuery( '.ti-about-page-required-action-button' ).click(
+		// 	function () {
+        //
+		// 		var id = jQuery( this ).attr( 'id' ),
+		// 			action = jQuery( this ).attr( 'data-action' );
+        //
+		// 		jQuery.ajax(
+		// 			{
+		// 				type: 'GET',
+		// 				data: { key: 'value sent' },
+		// 				data: { action: 'ti_about_page_dismiss_required_action', id: id, todo: action },
+		// 				dataType: 'html',
+		// 				url: tiAboutPageObject.my_ajaxurl,
+		// 				beforeSend: function () {
+		// 					jQuery( '.ti-about-page-tab-pane#actions_required h1' ).append( '<div id="temp_load" style="text-align:center"><img src="' + tiAboutPageObject.template_directory + '/assests/img/ajax-loader.gif" /></div>' );
+		// 				},
+		// 				success: function () {
+		// 					location.reload();
+		// 					jQuery( '#temp_load' ).remove();
+		// 					/* Remove loading gif */
+		// 				},
+		// 				error: function ( jqXHR, textStatus, errorThrown ) {
+		// 					console.log( jqXHR + ' :: ' + textStatus + ' :: ' + errorThrown );
+		// 				}
+		// 			}
+		// 		);
+		// 	}
+		// );
 		// Remove activate button and replace with activation in progress button.
 		jQuery( document ).on(
 			'DOMNodeInserted', '.activate-now', function () {
