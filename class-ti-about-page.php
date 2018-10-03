@@ -123,7 +123,7 @@ class Ti_About_Page {
 		if ( ! empty( $plugins ) ) {
 			foreach ( $plugins as $plugin ) {
 				$nb_of_actions += 1;
-				if ( $plugin_helper->check_plugin_state( $plugin['slug'] ) === 'deactivate' ) {
+				if ( $plugin_helper->check_plugin_state( $plugin['slug'] ) !== 'deactivate' ) {
 					$actions_left += 1;
 				}
 			}
@@ -143,6 +143,8 @@ class Ti_About_Page {
 	 */
 	public function enqueue() {
 		$screen = get_current_screen();
+		$theme = $this->theme_args;
+		$menu_name = __( 'About', 'text-domain') . ' ' . $theme['name'];
 		
 		if ( ! isset( $screen->id ) ) {
 			return;
@@ -160,6 +162,7 @@ class Ti_About_Page {
 			'ti-about-scripts',
 			'tiAboutPageObject',
 			array(
+				'menu_name'           => $menu_name,
 				'nr_actions_required' => $this->required_actions,
 				'ajaxurl'             => admin_url( 'admin-ajax.php' ),
 				'template_directory'  => get_template_directory_uri(),

@@ -13,7 +13,10 @@ jQuery( document ).ready(
 
 		/* Show required actions next to page title and tab title */
 		if ( tiAboutPageObject.nr_actions_required > 0 ) {
-			jQuey( '#recommended_actions' ).append( '<span class="badge-action-count">' + tiAboutPageObject.nr_actions_required + '</span>' );
+			jQuery( '#about-tabs ul li > .recommended_actions' ).append( '<span class="badge-action-count">' + tiAboutPageObject.nr_actions_required + '</span>' );
+			if( jQuery( '.wp-submenu li.current a' ).text() === tiAboutPageObject.menu_name ) {
+                jQuery( '.wp-submenu li.current a' ).append( '<span class="badge-action-count">' + tiAboutPageObject.nr_actions_required + '</span>' );
+			}
 		}
 
 		/* Dismiss required actions */

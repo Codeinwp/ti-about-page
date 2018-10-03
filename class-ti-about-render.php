@@ -80,11 +80,11 @@ class TI_About_Render {
 	    echo '<ul class="nav-tab-wrapper wp-clearfix">';
 		foreach( $this->tabs as $slug => $tab_data ) {
             echo '<li data-tab-id="' . esc_attr( $slug ) . ' ">';
-            echo '<a ';
+            echo '<a class="nav-tab';
             if ( $tab_data['type'] === 'recommended_actions' ) {
-	            echo 'id="recommended_actions" ';
+	            echo ' recommended_actions';
             }
-            echo 'class="nav-tab" href="#' . esc_attr( $slug ) .'">' . esc_html( $tab_data['title'] ) . '</a>';
+            echo '" href="#' . esc_attr( $slug ) .'">' . esc_html( $tab_data['title'] ) . '</a>';
             echo '</li>';
 		}
 
