@@ -79,6 +79,9 @@ class TI_About_Render {
 
 	    echo '<ul class="nav-tab-wrapper wp-clearfix">';
 		foreach( $this->tabs as $slug => $tab_data ) {
+		    if ( $tab_data['type'] === 'recommended_actions' && Ti_About_Page::get_required_actions() === 0 ) {
+		        continue;
+            }
             echo '<li data-tab-id="' . esc_attr( $slug ) . ' ">';
             echo '<a class="nav-tab';
             if ( $tab_data['type'] === 'recommended_actions' ) {
@@ -133,14 +136,14 @@ class TI_About_Render {
 	 * Render recommended actions
 	 */
 	private function render_recommended_actions( $plugins_list ) {
-		if ( empty( $plugins_list ) ) {
+		if ( empty( $plugins_list ) || Ti_About_Page::get_required_actions() === 0 ) {
 			return;
 		}
 
 		$recommended_plugins_visbility = get_option( 'recommended_plugins' );
 
         foreach ( $plugins_list as $slug => $plugin ) {
-            if( $recommended_plugins_visbility[$slug] === 'hidden' ) {
+            if( $recommended_plugins_visbility[$slug] === 'hidden' || Ti_About_Plugin_Helper::instance()->check_plugin_state( $slug ) === 'deactivate' ) {
                 continue;
             }
 

@@ -25,7 +25,7 @@ class Ti_About_Page {
 	/**
 	 * Recommended actions uncompleted
 	 */
-    private $required_actions = 0;
+    public $required_actions = 0;
 
 	/**
 	 * About Page instance
@@ -86,7 +86,7 @@ class Ti_About_Page {
 
 		$menu_name = __( 'About', 'text-domain') . ' ' . $theme['name'];
 		if ( $this->required_actions > 0 ) {
-			$menu_name .= '<span class="badge-action-count">' . esc_html( $this->required_actions ) . '</span>';
+			$menu_name .= '<span class="badge-action-count update-plugins">' . esc_html( $this->required_actions ) . '</span>';
 		}
 
 			add_theme_page(
@@ -218,5 +218,9 @@ class Ti_About_Page {
 		$this->recommended_actions_left();
 		$required_actions_left = array( 'required_actions', $this->required_actions );
 		wp_send_json( $required_actions_left );
+	}
+
+	public static function get_required_actions() {
+		return self::$instance->required_actions;
 	}
 }
