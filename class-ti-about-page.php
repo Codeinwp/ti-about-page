@@ -165,13 +165,14 @@ class Ti_About_Page {
 			}
 		}
 
-		var_dump( 'total actions ' . $nb_of_actions );
-		var_dump( 'actions left ' . $actions_left );
 		if ( $actions_left > 0 ) {
 			$this->required_actions = $actions_left;
 		}
 	}
 
+	/**
+	 * Get the list of recommended plugins
+	 */
 	public function get_recommended_plugins() {
 		foreach( $this->config as $index => $content ) {
 			if ( isset( $content['type'] ) && $content['type'] === 'recommended_actions' ) {
@@ -183,6 +184,10 @@ class Ti_About_Page {
 		return array();
 	}
 
+	/**
+	 * Set an option with recommended plugins slugs and visibility
+	 * Based on visibility flag the plugin should be shown/hidden in recommended_plugins tab
+	 */
 	public function set_recommended_plugins_visibility() {
 
 		if ( ! empty( get_option( 'recommended_plugins' ) ) ) {
@@ -198,6 +203,9 @@ class Ti_About_Page {
 		update_option( 'recommended_plugins', $required_plugins_visbility );
 	}
 
+	/**
+	 * Update recommended plugins visibility flag if the user dismiss one of them
+	 */
 	public function update_recommended_plugins_visibility() {
 
 		$recommended_plugins = get_option( 'recommended_plugins' );
@@ -209,7 +217,6 @@ class Ti_About_Page {
 
 		$this->recommended_actions_left();
 		$required_actions_left = array( 'required_actions', $this->required_actions );
-	wp_send_json( $required_actions_left );
-		die();
+		wp_send_json( $required_actions_left );
 	}
 }
