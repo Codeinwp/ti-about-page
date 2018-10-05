@@ -66,10 +66,12 @@ class Ti_About_Page {
 
 		add_action( 'admin_menu', array( $this, 'register' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
-		add_action( 'wp_ajax_update_recommended_plugins_visibility', array(
-			$this,
-			'update_recommended_plugins_visibility'
-		) );
+		add_action(
+			'wp_ajax_update_recommended_plugins_visibility', array(
+				$this,
+				'update_recommended_plugins_visibility',
+			)
+		);
 	}
 
 	/**
@@ -126,11 +128,12 @@ class Ti_About_Page {
 
 		wp_enqueue_style( 'ti-about-style', TI_ABOUT_PAGE_URL . '/css/style.css', array(), TI_ABOUT_PAGE_VERSION );
 
-		wp_register_script( 'ti-about-scripts', TI_ABOUT_PAGE_URL . '/js/ti_about_page_scripts.js', array(
-			'jquery',
-			'jquery-ui-tabs'
-		), TI_ABOUT_PAGE_VERSION, true );
-
+		wp_register_script(
+			'ti-about-scripts', TI_ABOUT_PAGE_URL . '/js/ti_about_page_scripts.js', array(
+				'jquery',
+				'jquery-ui-tabs',
+			), TI_ABOUT_PAGE_VERSION, true
+		);
 
 		wp_localize_script(
 			'ti-about-scripts',
@@ -149,6 +152,8 @@ class Ti_About_Page {
 
 	/**
 	 * Utility function for checking the number of recommended actions uncompleted
+	 *
+	 * @return int $actions_left - the number of uncompleted recommended actions.
 	 */
 	public function get_recommended_actions_left() {
 
@@ -173,6 +178,8 @@ class Ti_About_Page {
 
 	/**
 	 * Get the list of recommended plugins
+	 *
+	 * @return array - either recommended plugins or empty array.
 	 */
 	public function get_recommended_plugins() {
 		foreach ( $this->config as $index => $content ) {

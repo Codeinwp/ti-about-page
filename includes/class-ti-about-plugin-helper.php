@@ -128,7 +128,7 @@ class Ti_About_Plugin_Helper {
 				break;
 
 			case 'enable_cpt':
-				$url    = admin_url( 'admin.php?page=jetpack#/settings' );
+				$url     = admin_url( 'admin.php?page=jetpack#/settings' );
 				$button .= '<a  data-redirect="' . esc_url( $redirect ) . '" class="button" href="' . esc_url( $url ) . '">' . esc_html__( 'Activate', 'textdomain' ) . ' ' . esc_html__( 'Jetpack Portfolio', 'textdomain' ) . '</a>';
 				break;
 		}// End switch().

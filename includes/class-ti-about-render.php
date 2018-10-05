@@ -119,23 +119,23 @@ class TI_About_Render {
 	 */
 	private function render_tabs_content() {
 		foreach ( $this->tabs as $slug => $tab_data ) {
-		    if( $slug === 'recommended_actions' && $this->about_page->get_recommended_actions_left() === 0 ) {
-		        continue;
-            }
+			if ( $slug === 'recommended_actions' && $this->about_page->get_recommended_actions_left() === 0 ) {
+				continue;
+			}
 			echo '<div id="' . esc_attr( $slug ) . '" class="' . esc_attr( $tab_data['type'] ) . '">';
 
 			switch ( $tab_data['type'] ) {
 
-				case 'recommended_actions' :
+				case 'recommended_actions':
 					$this->render_recommended_actions( $tab_data['plugins'] );
 					break;
-				case 'plugins' :
+				case 'plugins':
 					$this->render_plugins_tab( $tab_data['plugins'] );
 					break;
-				case 'changelog' :
+				case 'changelog':
 					$this->render_changelog();
 					break;
-				default :
+				default:
 					$this->render_default_tab( $tab_data['content'] );
 					break;
 			}
@@ -152,6 +152,8 @@ class TI_About_Render {
 
 	/**
 	 * Render recommended actions
+	 *
+	 * @param array $plugins_list - recommended plugins.
 	 */
 	private function render_recommended_actions( $plugins_list ) {
 		if ( empty( $plugins_list ) || $this->about_page->get_recommended_actions_left() === 0 ) {
@@ -175,7 +177,9 @@ class TI_About_Render {
 	}
 
 	/**
-	 * Render plugins tab content
+	 * Render plugins tab content.
+	 *
+	 * @param array $plugins_list - list of useful plugins
 	 */
 	private function render_plugins_tab( $plugins_list ) {
 
@@ -270,6 +274,8 @@ class TI_About_Render {
 
 	/**
 	 * Return the releases changes array.
+	 *
+	 * @return array $releases - changelog.
 	 */
 	private function parse_changelog() {
 		WP_Filesystem();
@@ -301,7 +307,9 @@ class TI_About_Render {
 	}
 
 	/**
-	 * Render default tab content
+	 * Render default tab content.
+	 *
+	 * @param array $tab_content - tab content, title, text, button.
 	 */
 	private function render_default_tab( $tab_content ) {
 		foreach ( $tab_content as $content ) {
@@ -318,7 +326,9 @@ class TI_About_Render {
 	}
 
 	/**
-	 * Render button
+	 * Render button.
+	 *
+	 * @param array $button - args: label, link, new tab.
 	 */
 	private function render_button( $button ) {
 		if ( empty( $button ) ) {
@@ -326,9 +336,9 @@ class TI_About_Render {
 		}
 
 		if ( $button['link'] === '#recommended_actions' && $this->about_page->get_recommended_actions_left() === 0 ) {
-		    echo '<span>' . esc_html__( 'Recommended actions', 'textdomain' ) . '</span>';
-		    return;
-        }
+			echo '<span>' . esc_html__( 'Recommended actions', 'textdomain' ) . '</span>';
+			return;
+		}
 
 		echo '<a href="' . esc_url( $button['link'] ) . '"';
 		echo $button['is_button'] ? 'class="button button-primary"' : '';
