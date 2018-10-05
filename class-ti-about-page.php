@@ -82,6 +82,8 @@ class Ti_About_Page {
 			return;
 		}
 
+		$page_title = __( 'About', 'text-domain' ) . ' ' . $theme['name'] . ' ';
+
 		$menu_name        = __( 'About', 'text-domain' ) . ' ' . $theme['name'] . ' ';
 		$required_actions = $this->get_recommended_actions_left();
 		if ( $required_actions > 0 ) {
@@ -89,7 +91,7 @@ class Ti_About_Page {
 		}
 
 		add_theme_page(
-			$menu_name,
+			$page_title,
 			$menu_name,
 			'activate_plugins',
 			$theme['slug'] . '-welcome',
