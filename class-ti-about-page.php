@@ -152,7 +152,7 @@ class Ti_About_Page {
 
 		$nb_of_actions       = 0;
 		$actions_left        = 0;
-		$recommended_plugins = get_option( 'recommended_plugins' );
+		$recommended_plugins = get_option( 'ti_about_recommended_plugins' );
 
 		if ( ! empty( $recommended_plugins ) ) {
 			foreach ( $recommended_plugins as $slug => $visibility ) {
@@ -191,7 +191,7 @@ class Ti_About_Page {
 	 */
 	public function set_recommended_plugins_visibility() {
 
-		if ( ! empty( get_option( 'recommended_plugins' ) ) ) {
+		if ( ! empty( get_option( 'ti_about_recommended_plugins' ) ) ) {
 			return;
 		}
 
@@ -201,7 +201,7 @@ class Ti_About_Page {
 			$required_plugins_visbility[ $slug ] = 'visible';
 		}
 
-		update_option( 'recommended_plugins', $required_plugins_visbility );
+		update_option( 'ti_about_recommended_plugins', $required_plugins_visbility );
 	}
 
 	/**
@@ -209,12 +209,12 @@ class Ti_About_Page {
 	 */
 	public function update_recommended_plugins_visibility() {
 
-		$recommended_plugins = get_option( 'recommended_plugins' );
+		$recommended_plugins = get_option( 'ti_about_recommended_plugins' );
 
 		$plugin_to_update                         = $_POST['slug'];
 		$recommended_plugins[ $plugin_to_update ] = 'hidden';
 
-		update_option( 'recommended_plugins', $recommended_plugins );
+		update_option( 'ti_about_recommended_plugins', $recommended_plugins );
 
 		$required_actions_left = array( 'required_actions' => $this->get_recommended_actions_left() );
 		wp_send_json( $required_actions_left );
