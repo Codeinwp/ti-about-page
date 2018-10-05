@@ -104,7 +104,7 @@ class Ti_About_Page {
 	 * Instantiate the render class which will render all the tabs based on config
 	 */
 	public function render() {
-		require_once 'class-ti-about-render.php';
+		require_once 'includes/class-ti-about-render.php';
 		new TI_About_Render( $this->theme_args, $this->config, $this );
 	}
 
