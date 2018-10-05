@@ -119,6 +119,9 @@ class TI_About_Render {
 	 */
 	private function render_tabs_content() {
 		foreach ( $this->tabs as $slug => $tab_data ) {
+		    if( $slug === 'recommended_actions' && $this->about_page->get_recommended_actions_left() === 0 ) {
+		        continue;
+            }
 			echo '<div id="' . esc_attr( $slug ) . '" class="' . esc_attr( $tab_data['type'] ) . '">';
 
 			switch ( $tab_data['type'] ) {
