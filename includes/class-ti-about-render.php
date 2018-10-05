@@ -325,6 +325,11 @@ class TI_About_Render {
 			return;
 		}
 
+		if ( $button['link'] === '#recommended_actions' && $this->about_page->get_recommended_actions_left() === 0 ) {
+		    echo '<span>' . esc_html__( 'Recommended actions', 'textdomain' ) . '</span>';
+		    return;
+        }
+
 		echo '<a href="' . esc_url( $button['link'] ) . '"';
 		echo $button['is_button'] ? 'class="button button-primary"' : '';
 		echo $button['blank'] ? 'target="_blank"' : '';
