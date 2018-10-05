@@ -16,24 +16,35 @@ jQuery( document ).ready(
 			jQuery( '#about-tabs ul li > .recommended_actions' ).append( '<span class="badge-action-count">' + tiAboutPageObject.nr_actions_required + '</span>' );
 		}
 
-        jQuery( '.ti-about-page-required-action-button' ).click( function() {
+		jQuery( '.ti-about-page-required-action-button' ).click( function () {
 
-            var plugin_slug = jQuery( this ).attr( 'data-slug' );
+			var plugin_slug = jQuery( this ).attr( 'data-slug' );
 
-            jQuery.ajax(
-                {
-                    type: 'POST',
-                    data: { action: 'update_recommended_plugins_visibility', slug: plugin_slug },
-                    url: tiAboutPageObject.ajaxurl,
-                    success: function(r) {
-						jQuery( '.' + plugin_slug ).hide();
-                        jQuery( '#about-tabs ul li > .recommended_actions span' ).text( r[1] );
-                        jQuery( '#adminmenu .wp-submenu li a span.badge-action-count' ).text( r[1] );
-                    },
-                    error: function ( jqXHR, textStatus, errorThrown ) {
-                        console.log( jqXHR + ' :: ' + textStatus + ' :: ' + errorThrown );
-                    }
-                }
+			var card = jQuery( '.' + plugin_slug );
+
+			jQuery.ajax(
+				{
+					type: 'POST',
+					data: { action: 'update_recommended_plugins_visibility', slug: plugin_slug },
+					url: tiAboutPageObject.ajaxurl,
+					beforeSend: function() {
+						jQuery(card).fadeOut();
+
+					},
+					success: function ( response ) {
+						console.log(response.required_actions);
+						if( response.required_actions === 0 ) {
+							jQuery('#about-tabs #recommended_actions, [data-tab-id="recommended_actions"], #adminmenu .wp-submenu li a span.badge-action-count').fadeOut().remove();
+							jQuery( '#about-tabs ul > li:first-child a' ).click();
+						}
+						jQuery(card).remove();
+						jQuery( '#about-tabs ul li > .recommended_actions span, #adminmenu .wp-submenu li a span.badge-action-count' ).text( response.required_actions );
+					},
+					error: function ( jqXHR, textStatus, errorThrown ) {
+						jQuery(card).fadeIn();
+						console.log( jqXHR + ' :: ' + textStatus + ' :: ' + errorThrown );
+					}
+				}
 			);
 		} );
 
@@ -67,24 +78,24 @@ jQuery( document ).ready(
 );
 
 function handleLinkingInTabs() {
-	jQuery( '#about_tabs > div a[href^=\'#\']' ).on( 'click', function () {
-		var index = jQuery( this ).attr( 'href' ).substr(1);
-		jQuery( '[data-tab-id="' + index + '"] > a' ).click();
+	jQuery( '#about-tabs > div a[href^=\'#\']' ).on( 'click', function () {
+		var index = jQuery( this ).attr( 'href' ).substr( 1 );
+		jQuery( 'li[data-tab-id="' + index + '"] > a' ).click();
 		return false;
 	} );
 }
 
 function startLoader() {
-	var loader = jQuery('.about-loader');
+	var loader = jQuery( '.about-loader' );
 
-	setTimeout(function() {
-		jQuery(loader).css('right', 0 );
-	}, 1000);
+	setTimeout( function () {
+		jQuery( loader ).css( 'right', 0 );
+	}, 1000 );
 
-	window.addEventListener("DOMContentLoaded", function(event) {
-		setTimeout(function() {
-			jQuery(loader).css( 'left', '100%');
-			jQuery('.about-loading').removeClass('loading');
-		}, 1500);
-	});
+	window.addEventListener( 'DOMContentLoaded', function()  {
+		setTimeout( function () {
+			jQuery( loader ).css( 'left', '100%' );
+			jQuery( '.about-loading' ).removeClass( 'loading' );
+		}, 1500 );
+	} );
 }

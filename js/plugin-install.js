@@ -20,7 +20,7 @@ jQuery( document ).ready(
 					var button = $( this );
 					var slug = button.attr( 'data-slug' );
 					var url = button.attr( 'href' );
-					var redirect = $( button ).attr( 'data-redirect' );
+					var redirect = $( button ).data( 'redirect' );
 					button.text( wp.updates.l10n.installing );
 					button.addClass( 'updating-message' );
 					wp.updates.installPlugin(
@@ -48,6 +48,7 @@ jQuery( document ).ready(
 							// Reload the page.
 							if ( typeof(redirect) !== 'undefined' && redirect !== '' ) {
 								window.location.replace( redirect );
+								location.reload();
 							} else {
 								location.reload();
 							}

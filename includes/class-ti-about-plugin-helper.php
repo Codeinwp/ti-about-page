@@ -35,7 +35,7 @@ class Ti_About_Plugin_Helper {
 	/**
 	 * Get plugin path based on plugin slug.
 	 *
-	 * @param string $slug Plugin slug.
+	 * @param string $slug - plugin slug.
 	 *
 	 * @return string
 	 */
@@ -140,7 +140,7 @@ class Ti_About_Plugin_Helper {
 	/**
 	 * Check plugin state.
 	 *
-	 * @param string $slug plugin slug.
+	 * @param string $slug - plugin slug.
 	 *
 	 * @return bool
 	 */
