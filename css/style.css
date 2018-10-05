@@ -389,6 +389,14 @@
 	align-items: center;
 }
 
+.about-wrap .header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+.about-wrap .header .epsilon-welcome-logo {
+	position: relative;
+}
 
 #about-tabs ul li:first-of-type {
 	margin-bottom: -6px;
