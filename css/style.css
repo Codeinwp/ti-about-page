@@ -390,12 +390,14 @@
 }
 
 .about-wrap .header {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
+	display: grid;
+	grid-template-columns: auto 140px;
+	margin-bottom: 20px;
 }
-.about-wrap .header .epsilon-welcome-logo {
-	position: relative;
+
+.about-wrap .header .info > h1,
+.about-wrap .header .info > .ti-about-header-text {
+	margin-right: 20px;
 }
 
 #about-tabs ul li:first-of-type {
