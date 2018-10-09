@@ -65,6 +65,7 @@ class Ti_About_Page {
 	public function setup_actions() {
 
 		add_action( 'admin_menu', array( $this, 'register' ) );
+		add_action( 'load-themes.php', array( $this, 'admin_notice_activation' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
 		add_action(
 			'wp_ajax_update_recommended_plugins_visibility', array(
@@ -229,4 +230,21 @@ class Ti_About_Page {
 		wp_send_json( $required_actions_left );
 	}
 
+	public function admin_notice_activation() {
+
+		global $pagenow;
+		if ( is_admin() && ( 'themes.php' == $pagenow ) && isset( $_GET['activated'] ) ) {
+			add_action( 'admin_notices', array( $this, 'welcome_notice' ), 99 );
+		}
+	}
+
+	public function welcome_notice() {
+
+		$url = admin_url( 'themes.php?page=' . $this->theme_args['slug'] . '-welcome' );
+		$notice = apply_filters( 'hestia_welcome_notice_filter', ( '<p>' . sprintf( 'Welcome! Thank you for choosing %1$s! To fully take advantage of the best our theme can offer please make sure you visit our %2$swelcome page%3$s.', $this->theme_args['name'], '<a href="' . esc_url( admin_url( 'themes.php?page=' . $this->theme_args['slug'] . '-welcome' ) ) . '">', '</a>' ) . '</p><p><a href="' . esc_url( $url ) . '" class="button" style="text-decoration: none;">' . sprintf( 'Get started with %s', $this->theme_args['name'] ) . '</a></p>' ) );
+
+		echo '<div class="updated notice is-dismissible">';
+		echo wp_kses_post( $notice );
+		echo '</div>';
+	}
 }
