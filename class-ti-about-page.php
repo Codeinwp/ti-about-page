@@ -241,7 +241,7 @@ class Ti_About_Page {
 	public function welcome_notice() {
 
 		$url = admin_url( 'themes.php?page=' . $this->theme_args['slug'] . '-welcome' );
-		$notice = apply_filters( 'hestia_welcome_notice_filter', ( '<p>' . sprintf( 'Welcome! Thank you for choosing %1$s! To fully take advantage of the best our theme can offer please make sure you visit our %2$swelcome page%3$s.', $this->theme_args['name'], '<a href="' . esc_url( admin_url( 'themes.php?page=' . $this->theme_args['slug'] . '-welcome' ) ) . '">', '</a>' ) . '</p><p><a href="' . esc_url( $url ) . '" class="button" style="text-decoration: none;">' . sprintf( 'Get started with %s', $this->theme_args['name'] ) . '</a></p>' ) );
+		$notice = apply_filters( 'ti_about_welcome_notice_filter', ( '<p>' . sprintf( 'Welcome! Thank you for choosing %1$s! To fully take advantage of the best our theme can offer please make sure you visit our %2$swelcome page%3$s.', $this->theme_args['name'], '<a href="' . esc_url( admin_url( 'themes.php?page=' . $this->theme_args['slug'] . '-welcome' ) ) . '">', '</a>' ) . '</p><p><a href="' . esc_url( $url ) . '" class="button" style="text-decoration: none;">' . sprintf( 'Get started with %s', $this->theme_args['name'] ) . '</a></p>' ) );
 
 		echo '<div class="updated notice is-dismissible">';
 		echo wp_kses_post( $notice );
