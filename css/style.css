@@ -389,14 +389,14 @@
 	align-items: center;
 }
 
-.about-wrap .header {
+.about-wrap > .header {
 	display: grid;
 	grid-template-columns: auto 140px;
 	margin-bottom: 20px;
 }
 
-.about-wrap .header .info > h1,
-.about-wrap .header .info > .ti-about-header-text {
+.about-wrap > .header .info > h1,
+.about-wrap > .header .info > .ti-about-header-text {
 	margin-right: 20px;
 }
 
