@@ -73,7 +73,7 @@ class TI_About_Render {
 		<div class="about-loading loading">
 			<div class="about-loader">
 				<div class="loader-content">
-					<p><i class="dashicons dashicons-update"></i><span><?php echo __( 'Loading...', 'neve' ); ?></span>
+					<p><i class="dashicons dashicons-update"></i><span><?php echo __( 'Loading...', 'textdomain' ); ?></span>
 					</p>
 				</div>
 			</div>
