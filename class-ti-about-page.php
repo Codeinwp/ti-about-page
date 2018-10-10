@@ -201,7 +201,8 @@ class Ti_About_Page {
 	 */
 	public function set_recommended_plugins_visibility() {
 
-		if ( ! empty( get_option( 'ti_about_recommended_plugins' ) ) ) {
+		$recommended_plugins_option = get_option( 'ti_about_recommended_plugins' );
+		if ( ! empty( $recommended_plugins_option ) ) {
 			return;
 		}
 
