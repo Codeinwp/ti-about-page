@@ -170,7 +170,12 @@ class TI_About_Render {
 			echo '<div class="ti-about-page-action-required-box ' . esc_attr( $slug ) . '">';
 			echo '<span class="dashicons dashicons-visibility ti-about-page-required-action-button" data-slug="' . esc_attr( $slug ) . '"></span>';
 			echo '<h3>' . $plugin['name'] . '</h3>';
-			echo '<p>' . $plugin['description'] . '</p>';
+			if ( ! empty( $plugin['description'] ) ) {
+				echo '<p>' . $plugin['description'] . '</p>';
+            } else {
+                $plugin_description = $this->call_plugin_api( $slug );
+				echo '<p>' . $plugin_description->short_description . '</p>';
+            }
 			echo Ti_About_Plugin_Helper::instance()->get_button_html( $slug, array( 'redirect' => add_query_arg( 'page', $this->theme['slug'] . '-welcome', admin_url( 'themes.php#recommended_actions' ) ) ) );
 			echo '</div>';
 		}
