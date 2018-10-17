@@ -70,14 +70,6 @@ class TI_About_Render {
 	private function render_header() {
 
 		?>
-		<div class="about-loading loading">
-			<div class="about-loader">
-				<div class="loader-content">
-					<p><i class="dashicons dashicons-update"></i><span><?php echo __( 'Loading...', 'textdomain' ); ?></span>
-					</p>
-				</div>
-			</div>
-		</div>
 		<div class="header">
 			<div class="info"><h1>Welcome to <?php echo esc_html( $this->theme['name'] ); ?>! - Version <span
 							class="version-container"><?php echo esc_html( $this->theme['version'] ); ?></span></h1>

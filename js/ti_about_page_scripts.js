@@ -9,7 +9,6 @@ jQuery( document ).ready(
 	function () {
 		jQuery( '#about-tabs' ).tabs();
 		handleLinkingInTabs();
-		startLoader();
 
 		/* Show required actions next to page title and tab title */
 		if ( tiAboutPageObject.nr_actions_required > 0 ) {
@@ -85,17 +84,3 @@ function handleLinkingInTabs() {
 	} );
 }
 
-function startLoader() {
-	var loader = jQuery( '.about-loader' );
-
-	setTimeout( function () {
-		jQuery( loader ).css( 'right', 0 );
-	}, 1000 );
-
-	window.addEventListener( 'DOMContentLoaded', function()  {
-		setTimeout( function () {
-			jQuery( loader ).css( 'left', '100%' );
-			jQuery( '.about-loading' ).removeClass( 'loading' );
-		}, 1500 );
-	} );
-}
