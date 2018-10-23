@@ -85,9 +85,9 @@ class Ti_About_Page {
 			return;
 		}
 
-		$page_title = __( 'About', 'text-domain' ) . ' ' . $theme['name'] . ' ';
+		$page_title = __( 'About', 'textdomain' ) . ' ' . $theme['name'] . ' ';
 
-		$menu_name        = __( 'About', 'text-domain' ) . ' ' . $theme['name'] . ' ';
+		$menu_name        = __( 'About', 'textdomain' ) . ' ' . $theme['name'] . ' ';
 		$required_actions = $this->get_recommended_actions_left();
 		if ( $required_actions > 0 ) {
 			$menu_name .= '<span class="badge-action-count update-plugins">' . esc_html( $required_actions ) . '</span>';
