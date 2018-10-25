@@ -400,7 +400,7 @@
 	margin-right: 20px;
 }
 
-#about-tabs ul li:first-of-type {
+#about-tabs > ul li:first-of-type {
 	margin-bottom: -6px;
 }
 
