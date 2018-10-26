@@ -253,10 +253,12 @@ class Ti_About_Page {
 		$default = array(
 			'type' => 'default',
 			'render_callback' => array( $this, 'render_notice' ),
+			'dismiss_option' => 'ti_about_welcome_notice',
+			'notice_class' => '',
 		);
 
 		$this->config['welcome_notice'] = wp_parse_args( $this->config['welcome_notice'], $default );
-		echo '<div class="updated notice is-dismissible ti-about-notice">';
+		echo '<div class="' . esc_attr( $this->config['welcome_notice']['notice_class'] ) . ' notice is-dismissible ti-about-notice">';
 		call_user_func( $this->config['welcome_notice']['render_callback'] );
 		echo '</div>';
 	}
@@ -289,7 +291,7 @@ class Ti_About_Page {
 		if ( ! isset( $params['nonce'] ) || ! wp_verify_nonce( $params['nonce'], 'dismiss_ti_about_notice' ) ) {
 			wp_send_json_error( 'Wrong nonce' );
 		}
-		add_user_meta( $user_id, 'ti_about_welcome_notice', 'dismissed', true );
+		add_user_meta( $user_id, $this->config['welcome_notice']['dismiss_option'], 'dismissed', true );
 		wp_send_json_success( 'Dismiss import' );
 	}
 
