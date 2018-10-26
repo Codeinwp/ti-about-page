@@ -65,8 +65,8 @@ class Ti_About_Page {
 	public function setup_actions() {
 
 		add_action( 'admin_menu', array( $this, 'register' ) );
-//		add_action( 'load-themes.php', array( $this, 'admin_notice_activation' ) );
 		add_action( 'admin_notices', array( $this, 'welcome_notice' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_notice_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
 		add_action(
 			'wp_ajax_update_recommended_plugins_visibility', array(
@@ -74,6 +74,7 @@ class Ti_About_Page {
 				'update_recommended_plugins_visibility',
 			)
 		);
+		add_action( 'wp_ajax_dismiss_welcome_notice', array( $this, 'dismiss_welcome_notice' ) );
 	}
 
 	/**
@@ -232,17 +233,20 @@ class Ti_About_Page {
 		wp_send_json( $required_actions_left );
 	}
 
-//	public function admin_notice_activation() {
-//
-//		global $pagenow;
-//		if ( is_admin() && ( 'themes.php' == $pagenow ) && isset( $_GET['activated'] ) ) {
-//			add_action( 'admin_notices', array( $this, 'welcome_notice' ), 99 );
-//		}
-//	}
-
+	/**
+	 * Display default or custom welcome notice, based on config and current user
+	 */
 	public function welcome_notice() {
 
 		if ( ! isset( $this->config['welcome_notice'] ) ) {
+			return;
+		}
+
+		global $current_user;
+		$user_id = $current_user->ID;
+		$dismissed_notice = get_user_meta( $user_id, 'ti_about_welcome_notice', true );
+
+		if ( $dismissed_notice === 'dismissed' ) {
 			return;
 		}
 
@@ -252,16 +256,61 @@ class Ti_About_Page {
 		);
 
 		$this->config['welcome_notice'] = wp_parse_args( $this->config['welcome_notice'], $default );
-
 		echo '<div class="updated notice is-dismissible ti-about-notice">';
 		call_user_func( $this->config['welcome_notice']['render_callback'] );
 		echo '</div>';
 	}
 
+	/**
+	 * Render the default welcome notice
+	 */
 	public function render_notice() {
 		$url = admin_url( 'themes.php?page=' . $this->theme_args['slug'] . '-welcome' );
 		$notice = apply_filters( 'ti_about_welcome_notice_filter', ( '<p>' . sprintf( 'Welcome! Thank you for choosing %1$s! To fully take advantage of the best our theme can offer please make sure you visit our %2$swelcome page%3$s.', $this->theme_args['name'], '<a href="' . esc_url( admin_url( 'themes.php?page=' . $this->theme_args['slug'] . '-welcome' ) ) . '">', '</a>' ) . '</p><p><a href="' . esc_url( $url ) . '" class="button" style="text-decoration: none;">' . sprintf( 'Get started with %s', $this->theme_args['name'] ) . '</a></p>' ) );
 
 		echo wp_kses_post( $notice );
+	}
+
+	/**
+	 * Dismiss welcome notice
+	 */
+	public function dismiss_welcome_notice() {
+
+		$params = $_REQUEST;
+		global $current_user;
+		$user_id = $current_user->ID;
+
+		$dismissed_notice = get_user_meta( $user_id, 'ti_about_welcome_notice', true );
+
+		if ( $dismissed_notice === 'dismissed' ) {
+			return;
+		}
+
+		if ( ! isset( $params['nonce'] ) || ! wp_verify_nonce( $params['nonce'], 'dismiss_ti_about_notice' ) ) {
+			wp_send_json_error( 'Wrong nonce' );
+		}
+		add_user_meta( $user_id, 'ti_about_welcome_notice', 'dismissed', true );
+		wp_send_json_success( 'Dismiss import' );
+	}
+
+	/**
+	 * Welcome notice scripts
+	 */
+	public function enqueue_notice_scripts() {
+		wp_enqueue_script(
+			'ti-about-notice-scripts',
+			TI_ABOUT_PAGE_URL . '/js/ti_about_notice_scripts.js',
+			array(),
+			TI_ABOUT_PAGE_VERSION,
+			true
+		);
+		wp_localize_script(
+			'ti-about-notice-scripts',
+			'tiAboutNotice',
+			array(
+				'ajaxurl'      => admin_url( 'admin-ajax.php' ),
+				'dismissNonce' => wp_create_nonce( 'dismiss_ti_about_notice' ),
+			)
+		);
 	}
 }
