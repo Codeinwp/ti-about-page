@@ -57,6 +57,15 @@ class Ti_About_Page {
 		$this->theme_args['version']     = $theme->__get( 'Version' );
 		$this->theme_args['description'] = $theme->__get( 'Description' );
 		$this->theme_args['slug']        = $theme->__get( 'stylesheet' );
+
+		$default = array(
+			'type' => 'default',
+			'render_callback' => array( $this, 'render_notice' ),
+			'dismiss_option' => 'ti_about_welcome_notice',
+			'notice_class' => '',
+		);
+
+		$this->config['welcome_notice'] = wp_parse_args( $this->config['welcome_notice'], $default );
 	}
 
 	/**
@@ -254,20 +263,10 @@ class Ti_About_Page {
 		global $current_user;
 		$user_id = $current_user->ID;
 		$dismissed_notice = get_user_meta( $user_id, $this->config['welcome_notice']['dismiss_option'], true );
-
-
 		if ( $dismissed_notice === 'dismissed' ) {
 			return;
 		}
 
-		$default = array(
-			'type' => 'default',
-			'render_callback' => array( $this, 'render_notice' ),
-			'dismiss_option' => 'ti_about_welcome_notice',
-			'notice_class' => '',
-		);
-
-		$this->config['welcome_notice'] = wp_parse_args( $this->config['welcome_notice'], $default );
 		echo '<div class="' . esc_attr( $this->config['welcome_notice']['notice_class'] ) . ' notice is-dismissible ti-about-notice">';
 		call_user_func( $this->config['welcome_notice']['render_callback'] );
 		echo '</div>';
@@ -292,17 +291,11 @@ class Ti_About_Page {
 		global $current_user;
 		$user_id = $current_user->ID;
 
-		$dismissed_notice = get_user_meta( $user_id, 'ti_about_welcome_notice', true );
-
-		if ( $dismissed_notice === 'dismissed' ) {
-			return;
-		}
-
 		if ( ! isset( $params['nonce'] ) || ! wp_verify_nonce( $params['nonce'], 'dismiss_ti_about_notice' ) ) {
 			wp_send_json_error( 'Wrong nonce' );
 		}
 		add_user_meta( $user_id, $this->config['welcome_notice']['dismiss_option'], 'dismissed', true );
-		wp_send_json_success( 'Dismiss import' );
+		wp_send_json_success( 'Dismiss notice' );
 	}
 
 	/**
