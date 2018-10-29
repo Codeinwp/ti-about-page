@@ -65,7 +65,9 @@ class Ti_About_Page {
 			'notice_class' => '',
 		);
 
-		$this->config['welcome_notice'] = wp_parse_args( $this->config['welcome_notice'], $default );
+		if ( isset( $this->config['welcome_notice'] ) ) {
+			$this->config['welcome_notice'] = wp_parse_args( $this->config['welcome_notice'], $default );
+		}
 	}
 
 	/**
