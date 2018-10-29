@@ -238,6 +238,15 @@ class Ti_About_Page {
 	 */
 	public function welcome_notice() {
 
+		/**
+		 * Handle edge case for Zerif
+		 */
+		if ( defined( 'ZERIF_VERSION' ) || defined( 'ZERIF_LITE_VERSION' ) ) {
+			if ( get_option( 'zelle_notice_dismissed' ) === 'yes' ) {
+				return;
+			}
+		}
+
 		if ( ! isset( $this->config['welcome_notice'] ) ) {
 			return;
 		}
@@ -245,6 +254,7 @@ class Ti_About_Page {
 		global $current_user;
 		$user_id = $current_user->ID;
 		$dismissed_notice = get_user_meta( $user_id, $this->config['welcome_notice']['dismiss_option'], true );
+
 
 		if ( $dismissed_notice === 'dismissed' ) {
 			return;
