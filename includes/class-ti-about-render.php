@@ -70,12 +70,12 @@ class TI_About_Render {
 	private function render_header() {
 
 		?>
-		<div class="header">
-			<div class="info"><h1>Welcome to <?php echo esc_html( $this->theme['name'] ); ?>! - Version <span
-							class="version-container"><?php echo esc_html( $this->theme['version'] ); ?></span></h1>
-				<div class="ti-about-header-text about-text"><?php echo esc_html( $this->theme['description'] ); ?></div>
-			</div>
-			<a href="https://themeisle.com/" target="_blank" class="wp-badge epsilon-welcome-logo"></a></div>
+        <div class="header">
+            <div class="info"><h1>Welcome to <?php echo esc_html( $this->theme['name'] ); ?>! - Version <span
+                            class="version-container"><?php echo esc_html( $this->theme['version'] ); ?></span></h1>
+                <div class="ti-about-header-text about-text"><?php echo esc_html( $this->theme['description'] ); ?></div>
+            </div>
+            <a href="https://themeisle.com/" target="_blank" class="wp-badge epsilon-welcome-logo"></a></div>
 		<?php
 	}
 
@@ -89,6 +89,10 @@ class TI_About_Render {
 			if ( $tab_data['type'] === 'recommended_actions' && $this->about_page->get_recommended_actions_left() === 0 ) {
 				continue;
 			}
+			if ( $slug === 'welcome_notice' ) {
+				continue;
+			}
+
 			echo '<li data-tab-id="' . esc_attr( $slug ) . '">';
 			echo '<a class="nav-tab';
 			if ( $tab_data['type'] === 'recommended_actions' ) {
@@ -114,6 +118,10 @@ class TI_About_Render {
 			if ( $slug === 'recommended_actions' && $this->about_page->get_recommended_actions_left() === 0 ) {
 				continue;
 			}
+			if ( $slug === 'welcome_notice' ) {
+				continue;
+			}
+
 			echo '<div id="' . esc_attr( $slug ) . '" class="' . esc_attr( $tab_data['type'] ) . '">';
 
 			switch ( $tab_data['type'] ) {
@@ -164,10 +172,10 @@ class TI_About_Render {
 			echo '<h3>' . $plugin['name'] . '</h3>';
 			if ( ! empty( $plugin['description'] ) ) {
 				echo '<p>' . $plugin['description'] . '</p>';
-            } else {
-                $plugin_description = $this->call_plugin_api( $slug );
+			} else {
+				$plugin_description = $this->call_plugin_api( $slug );
 				echo '<p>' . $plugin_description->short_description . '</p>';
-            }
+			}
 			echo Ti_About_Plugin_Helper::instance()->get_button_html( $slug, array( 'redirect' => add_query_arg( 'page', $this->theme['slug'] . '-welcome', admin_url( 'themes.php#recommended_actions' ) ) ) );
 			echo '</div>';
 		}
