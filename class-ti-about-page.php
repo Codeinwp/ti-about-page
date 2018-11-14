@@ -59,10 +59,10 @@ class Ti_About_Page {
 		$this->theme_args['slug']        = $theme->__get( 'stylesheet' );
 
 		$default = array(
-			'type' => 'default',
+			'type'            => 'default',
 			'render_callback' => array( $this, 'render_notice' ),
-			'dismiss_option' => 'ti_about_welcome_notice',
-			'notice_class' => '',
+			'dismiss_option'  => 'ti_about_welcome_notice',
+			'notice_class'    => '',
 		);
 
 		if ( isset( $this->config['welcome_notice'] ) ) {
@@ -80,7 +80,8 @@ class Ti_About_Page {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_notice_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
 		add_action(
-			'wp_ajax_update_recommended_plugins_visibility', array(
+			'wp_ajax_update_recommended_plugins_visibility',
+			array(
 				$this,
 				'update_recommended_plugins_visibility',
 			)
@@ -143,10 +144,14 @@ class Ti_About_Page {
 		wp_enqueue_style( 'ti-about-style', TI_ABOUT_PAGE_URL . '/css/style.css', array(), TI_ABOUT_PAGE_VERSION );
 
 		wp_register_script(
-			'ti-about-scripts', TI_ABOUT_PAGE_URL . '/js/ti_about_page_scripts.js', array(
-			'jquery',
-			'jquery-ui-tabs',
-		), TI_ABOUT_PAGE_VERSION, true
+			'ti-about-scripts',
+			TI_ABOUT_PAGE_URL . '/js/ti_about_page_scripts.js',
+			array(
+				'jquery',
+				'jquery-ui-tabs',
+			),
+			TI_ABOUT_PAGE_VERSION,
+			true
 		);
 
 		wp_localize_script(
@@ -263,7 +268,7 @@ class Ti_About_Page {
 		}
 
 		global $current_user;
-		$user_id = $current_user->ID;
+		$user_id          = $current_user->ID;
 		$dismissed_notice = get_user_meta( $user_id, $this->config['welcome_notice']['dismiss_option'], true );
 		if ( $dismissed_notice === 'dismissed' ) {
 			return;
@@ -278,7 +283,7 @@ class Ti_About_Page {
 	 * Render the default welcome notice
 	 */
 	public function render_notice() {
-		$url = admin_url( 'themes.php?page=' . $this->theme_args['slug'] . '-welcome' );
+		$url    = admin_url( 'themes.php?page=' . $this->theme_args['slug'] . '-welcome' );
 		$notice = apply_filters( 'ti_about_welcome_notice_filter', ( '<p>' . sprintf( 'Welcome! Thank you for choosing %1$s! To fully take advantage of the best our theme can offer please make sure you visit our %2$swelcome page%3$s.', $this->theme_args['name'], '<a href="' . esc_url( admin_url( 'themes.php?page=' . $this->theme_args['slug'] . '-welcome' ) ) . '">', '</a>' ) . '</p><p><a href="' . esc_url( $url ) . '" class="button" style="text-decoration: none;">' . sprintf( 'Get started with %s', $this->theme_args['name'] ) . '</a></p>' ) );
 
 		echo wp_kses_post( $notice );

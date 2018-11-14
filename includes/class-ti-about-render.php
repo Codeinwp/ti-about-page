@@ -70,12 +70,12 @@ class TI_About_Render {
 	private function render_header() {
 
 		?>
-        <div class="header">
-            <div class="info"><h1>Welcome to <?php echo esc_html( $this->theme['name'] ); ?>! - Version <span
-                            class="version-container"><?php echo esc_html( $this->theme['version'] ); ?></span></h1>
-                <div class="ti-about-header-text about-text"><?php echo esc_html( $this->theme['description'] ); ?></div>
-            </div>
-            <a href="https://themeisle.com/" target="_blank" class="wp-badge epsilon-welcome-logo"></a></div>
+		<div class="header">
+			<div class="info"><h1>Welcome to <?php echo esc_html( $this->theme['name'] ); ?>! - Version <span
+							class="version-container"><?php echo esc_html( $this->theme['version'] ); ?></span></h1>
+				<div class="ti-about-header-text about-text"><?php echo esc_html( $this->theme['description'] ); ?></div>
+			</div>
+			<a href="https://themeisle.com/" target="_blank" class="wp-badge epsilon-welcome-logo"></a></div>
 		<?php
 	}
 
