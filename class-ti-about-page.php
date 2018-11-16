@@ -273,8 +273,37 @@ class Ti_About_Page {
 		if ( $dismissed_notice === 'dismissed' ) {
 			return;
 		}
-
-		echo '<div class="' . esc_attr( $this->config['welcome_notice']['notice_class'] ) . ' notice is-dismissible ti-about-notice">';
+		$style = '
+			.ti-about-notice{
+				position: relative;
+			}
+			
+			.ti-about-notice .notice-dismiss{
+				position: absolute;
+				z-index: 10;
+			    top: 10px;
+			    right: 10px;
+			    padding: 10px 15px 10px 21px;
+			    font-size: 13px;
+			    line-height: 1.23076923;
+			    text-decoration: none;
+			}
+			
+			.ti-about-notice .notice-dismiss:before{
+			    position: absolute;
+			    top: 8px;
+			    left: 0;
+			    transition: all .1s ease-in-out;
+			    background: none;
+			}
+			
+			.ti-about-notice .notice-dismiss:hover{
+				color: #00a0d2;
+			}
+		';
+		echo '<style>'. $style . '</style>';
+		echo '<div class="' . esc_attr( $this->config['welcome_notice']['notice_class'] ) . ' notice ti-about-notice">';
+		echo '<button class="notice-dismiss">'. esc_html__('Dismiss','textdomain' ) .'</button>';
 		call_user_func( $this->config['welcome_notice']['render_callback'] );
 		echo '</div>';
 	}
