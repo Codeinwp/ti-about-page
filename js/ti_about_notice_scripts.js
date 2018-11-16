@@ -7,6 +7,7 @@
 (function ($) {
     $(document).ready(function () {
         $(document).on('click', '.notice.ti-about-notice .notice-dismiss', function () {
+            $(this).parent().hide();
             jQuery.ajax({
                 async: true,
                 type: 'POST',
