@@ -303,7 +303,7 @@ class Ti_About_Page {
 		';
 		echo '<style>'. $style . '</style>';
 		echo '<div class="' . esc_attr( $this->config['welcome_notice']['notice_class'] ) . ' notice ti-about-notice">';
-		echo '<button class="notice-dismiss">'. esc_html__('Dismiss','textdomain' ) .'</button>';
+		echo '<button class="notice-dismiss"></button>';
 		call_user_func( $this->config['welcome_notice']['render_callback'] );
 		echo '</div>';
 	}
