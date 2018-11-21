@@ -86,6 +86,9 @@ class TI_About_Render {
 
 		echo '<ul class="nav-tab-wrapper wp-clearfix">';
 		foreach ( $this->tabs as $slug => $tab_data ) {
+			if( ! array_key_exists( 'type', $tab_data ) ){
+				continue;
+			}
 			if ( $tab_data['type'] === 'recommended_actions' && $this->about_page->get_recommended_actions_left() === 0 ) {
 				continue;
 			}
@@ -115,6 +118,9 @@ class TI_About_Render {
 	 */
 	private function render_tabs_content() {
 		foreach ( $this->tabs as $slug => $tab_data ) {
+			if( ! array_key_exists( 'type', $tab_data ) ){
+				continue;
+			}
 			if ( $slug === 'recommended_actions' && $this->about_page->get_recommended_actions_left() === 0 ) {
 				continue;
 			}
