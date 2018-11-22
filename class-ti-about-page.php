@@ -218,12 +218,6 @@ class Ti_About_Page {
 	 * Based on visibility flag the plugin should be shown/hidden in recommended_plugins tab
 	 */
 	public function set_recommended_plugins_visibility() {
-
-		$recommended_plugins_option = get_option( 'ti_about_recommended_plugins' );
-		if ( ! empty( $recommended_plugins_option ) ) {
-			return;
-		}
-
 		$required_plugins           = $this->get_recommended_plugins();
 		$required_plugins_visbility = array();
 		foreach ( $required_plugins as $slug => $req_plugin ) {
@@ -253,6 +247,12 @@ class Ti_About_Page {
 	 * Display default or custom welcome notice, based on config and current user
 	 */
 	public function welcome_notice() {
+		/**
+		 * Do not display the notice on gutenberg pages.
+		 */
+		if( function_exists( 'is_gutenberg_page' ) && is_gutenberg_page() ){
+			return;
+		}
 
 		/**
 		 * Handle edge case for Zerif
