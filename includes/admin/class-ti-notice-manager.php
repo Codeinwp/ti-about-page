@@ -79,6 +79,17 @@ class Ti_Notice_Manager {
 	}
 
 	/**
+	 * @param $string
+	 *
+	 * @return mixed
+	 */
+	private function get_theme_activated_time() {
+		$directory_name = basename( get_template_directory() );
+		$option_name = str_replace( '-', '_', strtolower( trim( $directory_name ) ) ) . '_install';
+		return get_option($option_name);
+	}
+
+	/**
 	 * Add notice.
 	 */
 	public function admin_notice() {
@@ -110,11 +121,10 @@ class Ti_Notice_Manager {
 		}
 
 		// Let's dismiss the notice if the user sees it for more than 1 week.
-		$activated_time = get_option( 'ti_time_activated' );
+		$activated_time = $this->get_theme_activated_time();
 		if ( ! empty( $activated_time ) ) {
 			if ( time() - intval( $activated_time ) > self::EXPIRATION ) {
 				update_option( self::$dismiss_key, 'yes' );
-
 				return;
 			}
 		}

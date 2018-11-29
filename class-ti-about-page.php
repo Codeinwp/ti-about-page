@@ -65,7 +65,6 @@ class Ti_About_Page {
 	 */
 	public function setup_actions() {
 
-		add_action( 'after_switch_theme', array( $this, 'theme_activated' ) );
 		add_action( 'admin_menu', array( $this, 'register' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
 		add_action(
@@ -112,13 +111,6 @@ class Ti_About_Page {
 		}
 
 		return array();
-	}
-
-	/**
-	 * Executed after theme has been activated.
-	 */
-	public function theme_activated() {
-		update_option( 'ti_time_activated', time() );
 	}
 
 	/**
