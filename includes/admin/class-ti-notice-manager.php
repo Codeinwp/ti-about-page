@@ -121,6 +121,11 @@ class Ti_Notice_Manager {
 	 * Add notice.
 	 */
 	public function admin_notice() {
+		$current_screen = get_current_screen();
+		if( $current_screen->id !== 'dashboard' && $current_screen->id !== 'themes' ) {
+			return;
+		}
+
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			return;
 		}
