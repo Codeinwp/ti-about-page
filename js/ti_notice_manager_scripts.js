@@ -6,7 +6,7 @@
 
 (function ($) {
     $(document).ready(function () {
-        $(document).on('click', '.notice.ti-about-notice .notice-dismiss', function () {
+        $(document).on('click', '.notice.ti-about-notice .notice-dismiss, .notice.ti-about-notice .ti-return-dashboard span', function () {
             jQuery.ajax({
                 async: true,
                 type: 'POST',
