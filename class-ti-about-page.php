@@ -54,9 +54,9 @@ class Ti_About_Page {
 
 		$theme = wp_get_theme();
 
-		$this->theme_args['name']        = $theme->__get( 'Name' );
+		$this->theme_args['name']        = apply_filters( 'ti_wl_theme_name', $theme->__get( 'Name' ) );
 		$this->theme_args['version']     = $theme->__get( 'Version' );
-		$this->theme_args['description'] = $theme->__get( 'Description' );
+		$this->theme_args['description'] = apply_filters( 'ti_wl_theme_description', $theme->__get( 'Description' ) );
 		$this->theme_args['slug']        = $theme->__get( 'stylesheet' );
 	}
 
