@@ -17,6 +17,10 @@
 	overflow: hidden;
 }
 
+.about-wrap #about-tabs > div:not(:first-of-type) {
+	display: none;
+}
+
 .about-col i.dashicons {
 	position: relative;
 	top: 5px;
