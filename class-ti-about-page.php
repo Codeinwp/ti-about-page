@@ -187,7 +187,7 @@ class Ti_About_Page {
 		if ( ! isset( $screen->id ) ) {
 			return;
 		}
-
+		$theme = $this->theme_args;
 		$theme_page = !empty( $theme['template'] ) ? $theme['template'] . '-welcome' : $theme['slug'] . '-welcome';
 		if ( $screen->id !== 'appearance_page_' . $theme_page ) {
 			return;
