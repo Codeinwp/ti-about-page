@@ -87,12 +87,15 @@ class Ti_About_Page {
 	 * Based on visibility flag the plugin should be shown/hidden in recommended_plugins tab
 	 */
 	public function set_recommended_plugins_visibility() {
+		$recommended_plugins = get_option('ti_about_recommended_plugins');
+		if( !empty($recommended_plugins) ){
+			return;
+		}
 		$required_plugins           = $this->get_recommended_plugins();
 		$required_plugins_visbility = array();
 		foreach ( $required_plugins as $slug => $req_plugin ) {
 			$required_plugins_visbility[ $slug ] = 'visible';
 		}
-
 		update_option( 'ti_about_recommended_plugins', $required_plugins_visbility );
 	}
 
