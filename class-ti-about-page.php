@@ -132,11 +132,12 @@ class Ti_About_Page {
 			$menu_name .= '<span class="badge-action-count update-plugins">' . esc_html( $required_actions ) . '</span>';
 		}
 
+		$theme_page = !empty( $theme['template'] ) ? $theme['template'] . '-welcome' : $theme['slug'] . '-welcome';
 		add_theme_page(
 			$page_title,
 			$menu_name,
 			'activate_plugins',
-			$theme['template'] . '-welcome',
+			$theme_page,
 			array(
 				$this,
 				'render',
@@ -187,7 +188,8 @@ class Ti_About_Page {
 			return;
 		}
 
-		if ( $screen->id !== 'appearance_page_' . $this->theme_args['template'] . '-welcome' ) {
+		$theme_page = !empty( $theme['template'] ) ? $theme['template'] . '-welcome' : $theme['slug'] . '-welcome';
+		if ( $screen->id !== 'appearance_page_' . $theme_page ) {
 			return;
 		}
 
