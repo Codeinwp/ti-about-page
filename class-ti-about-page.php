@@ -55,6 +55,7 @@ class Ti_About_Page {
 		$theme = wp_get_theme();
 
 		$this->theme_args['name']        = apply_filters( 'ti_wl_theme_name', $theme->__get( 'Name' ) );
+		$this->theme_args['template']    = $theme->get('Template');
 		$this->theme_args['version']     = $theme->__get( 'Version' );
 		$this->theme_args['description'] = apply_filters( 'ti_wl_theme_description', $theme->__get( 'Description' ) );
 		$this->theme_args['slug']        = $theme->__get( 'stylesheet' );
@@ -135,7 +136,7 @@ class Ti_About_Page {
 			$page_title,
 			$menu_name,
 			'activate_plugins',
-			$theme['slug'] . '-welcome',
+			$theme['template'] . '-welcome',
 			array(
 				$this,
 				'render',
@@ -182,12 +183,11 @@ class Ti_About_Page {
 	 */
 	public function enqueue() {
 		$screen = get_current_screen();
-
 		if ( ! isset( $screen->id ) ) {
 			return;
 		}
 
-		if ( $screen->id !== 'appearance_page_' . $this->theme_args['slug'] . '-welcome' ) {
+		if ( $screen->id !== 'appearance_page_' . $this->theme_args['template'] . '-welcome' ) {
 			return;
 		}
 
