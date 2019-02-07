@@ -7,7 +7,7 @@
 
 jQuery( document ).ready(
 	function () {
-        jQuery( '#about-tabs' ).tabs();
+        jQuery( '#about-tabs' ).tabs().show();
         /**
 		 *  With a small height tab scroll is not working on WordPress menu
 		 *  That's why a windows resize is needed
