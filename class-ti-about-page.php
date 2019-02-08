@@ -215,6 +215,7 @@ class Ti_About_Page {
 			array(
 				'nr_actions_required' => $this->get_recommended_actions_left(),
 				'ajaxurl'             => admin_url( 'admin-ajax.php' ),
+				'nonce'               => wp_create_nonce('ti-about-nonce'),
 				'template_directory'  => get_template_directory_uri(),
 				'activating_string'   => esc_html__( 'Activating', 'textdomain' ),
 			)
@@ -228,7 +229,10 @@ class Ti_About_Page {
 	 * Update recommended plugins visibility flag if the user dismiss one of them
 	 */
 	public function update_recommended_plugins_visibility() {
-
+		$nonce = $_POST['nonce'];
+		if ( ! wp_verify_nonce( $nonce, 'ti-about-nonce' ) ) {
+			return;
+		}
 		$recommended_plugins = get_option( 'ti_about_recommended_plugins' );
 
 		$plugin_to_update                         = $_POST['slug'];

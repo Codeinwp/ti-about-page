@@ -29,7 +29,7 @@ jQuery( document ).ready(
 			jQuery.ajax(
 				{
 					type: 'POST',
-					data: { action: 'update_recommended_plugins_visibility', slug: plugin_slug },
+					data: { action: 'update_recommended_plugins_visibility', slug: plugin_slug, nonce: tiAboutPageObject.nonce },
 					url: tiAboutPageObject.ajaxurl,
 					beforeSend: function() {
 						jQuery(card).fadeOut();
