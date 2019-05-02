@@ -173,7 +173,7 @@ class TI_About_Render {
 			return;
 		}
 
-		$recommended_plugins_visbility = get_option( 'ti_about_recommended_plugins' );
+		$recommended_plugins_visbility = get_theme_mod( 'ti_about_recommended_plugins' );
 
 		foreach ( $plugins_list as $slug => $plugin ) {
 			if ( $recommended_plugins_visbility[ $slug ] === 'hidden' || Ti_About_Plugin_Helper::instance()->check_plugin_state( $slug ) === 'deactivate' ) {
