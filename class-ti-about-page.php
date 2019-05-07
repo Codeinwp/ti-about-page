@@ -196,7 +196,7 @@ class Ti_About_Page {
 			return;
 		}
 
-		wp_enqueue_style( 'ti-about-style', TI_ABOUT_PAGE_URL . '/css/style.css', array(), TI_ABOUT_PAGE_VERSION );
+		wp_enqueue_style( 'ti-about-style', TI_ABOUT_PAGE_URL . 'css/style.css', array(), TI_ABOUT_PAGE_VERSION );
 
 		wp_register_script(
 			'ti-about-scripts',
