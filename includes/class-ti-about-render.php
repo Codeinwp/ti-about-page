@@ -124,6 +124,7 @@ class TI_About_Render {
 	 * Render tab content
 	 */
 	private function render_tabs_content() {
+//		var_dump( $this->tabs );
 		foreach ( $this->tabs as $slug => $tab_data ) {
 			if( ! array_key_exists( 'type', $tab_data ) ){
 				continue;
@@ -283,7 +284,9 @@ class TI_About_Render {
 					echo '<h2>' . str_replace( '#', '', $release['title'] ) . ' </h2 > ';
 				}
 				if ( ! empty( $release['changes'] ) ) {
-					echo implode( '<br/>', $release['changes'] );
+					foreach ( $release['changes'] as $change ){
+						echo esc_html( $change ) . '<br/>';
+					}
 				}
 			}
 			echo '</div>';
