@@ -3,7 +3,7 @@
 	background-image: url(../images/logo.png);
 	background-repeat: no-repeat;
 	background-position: center center;
-	background-size: 70%;
+	background-size: 80%;
 	padding: 0;
 	width: 100px;
 	height: 70px;
@@ -203,7 +203,7 @@
 .badge-action-count {
 	display: inline-block;
 	z-index: 26;
-	margin: 5px 0 0 5px;
+	margin-left: 5px;
 	padding: 0 6px;
 	border-radius: 10px;
 	color: #fff;
