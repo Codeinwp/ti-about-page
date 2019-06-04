@@ -197,13 +197,11 @@ class Ti_About_Page {
 		}
 
 		wp_enqueue_style( 'ti-about-style', TI_ABOUT_PAGE_URL . 'assets/css/about.css', array(), TI_ABOUT_PAGE_VERSION );
-
 		wp_register_script(
 			'ti-about-scripts',
 			TI_ABOUT_PAGE_URL . 'assets/js/script.js',
 			array(
-//				'jquery',
-//				'jquery-ui-tabs',
+				'jquery',
 			),
 			TI_ABOUT_PAGE_VERSION,
 			true
