@@ -17,6 +17,10 @@
     &.columns-2 > div {
       width: calc(50% - 30px);
     }
+
+    &.columns-3 > div {
+      width: calc(33.3333333% - 30px);
+    }
   }
 }
 
@@ -96,6 +100,10 @@
 
 .ti-about-page-required-action-button:hover:before {
   color: #c00;
+}
+
+#demo-import {
+  margin: 0 auto;
 }
 
 //</editor-fold>

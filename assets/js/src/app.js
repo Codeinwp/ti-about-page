@@ -2,7 +2,7 @@
 import Sticky from 'sticky-js';
 
 let stickyMenu = new Sticky( '.ti-about-tablist',
-		{ marginTop: 32, stickyClass: 'stickied' } );
+		{ marginTop: 32, stickyClass: 'stickied', stickyFor: 782 } );
 
 function hashTabs() {
 	let hash = window.location.hash;
