@@ -18,7 +18,7 @@
   "scripts": {
     "build:js": "cross-env webpack --mode production --module-bind js=babel-loader",
     "watch:js": "cross-env webpack --mode development --module-bind js=babel-loader --watch",
-    "build:css": "./node_modules/.bin/node-sass --watch assets/scss -o assets/css",
+    "build:css": "./node_modules/.bin/node-sass assets/scss -o assets/css --output-style compressed",
     "watch:css": "./node_modules/.bin/node-sass --watch assets/scss -o assets/css --source-map true",
     "build": "npm-run-all build:css build:js",
     "dev": "npm-run-all --parallel watch:js watch:css "
