@@ -1,0 +1,13 @@
+@import "components/layout";
+
+.ti-about-wrap {
+  position: relative;
+  font-size: 15px;
+  max-width: 100%;
+  @import "components/generic";
+  @import "components/header";
+  @import "components/tablist";
+  @import "components/sidebar";
+  @import "components/tabs";
+  @import "components/plugins-tab";
+}
