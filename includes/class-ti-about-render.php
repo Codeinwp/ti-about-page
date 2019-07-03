@@ -53,6 +53,12 @@ class TI_About_Render {
 			return;
 		}
 
+		echo '<div class="loading-screen">';
+		echo '<div class="updating-message">';
+		echo '<p>'. esc_html__('Loading', 'textdomain' ) .'...</p>';
+		echo '</div>';
+		echo '</div>';
+
 		echo '<div class="ti-about-wrap">';
 		$this->render_header();
 		echo '<div class="main-content">';
