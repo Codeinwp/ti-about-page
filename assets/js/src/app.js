@@ -64,10 +64,16 @@ function addRequiredActionsBadge() {
 	}
 }
 
+function addContentLoadedClass(){
+	let body = document.body;
+	body.classList.add('about-loaded');
+}
+
 /**
  * Run JS on load.
  */
 window.addEventListener( 'DOMContentLoaded', function() {
+	addContentLoadedClass();
 	handleTabs();
 	hashTabs();
 	addRequiredActionsBadge();

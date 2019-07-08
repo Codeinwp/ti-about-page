@@ -1,6 +1,23 @@
 @import "components/layout";
 
+.about-loaded{
+  .loading-screen{
+    display: none;
+  }
+  .ti-about-wrap{
+    display: block;
+  }
+}
+
+.loading-screen {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .ti-about-wrap {
+  display: none;
   position: relative;
   font-size: 15px;
   max-width: 100%;
@@ -10,6 +27,7 @@
   @import "components/sidebar";
   @import "components/tabs";
   @import "components/plugins-tab";
+  @import "components/free_pro_table";
 
 
   @media (max-width: 1200px) {
