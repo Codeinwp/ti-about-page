@@ -55,7 +55,7 @@ class TI_About_Render {
 
 		echo '<div class="loading-screen">';
 		echo '<div class="updating-message">';
-		echo '<p>'. esc_html__('Loading', 'textdomain' ) .'...</p>';
+		echo '<p>' . esc_html__( 'Loading', 'textdomain' ) . '...</p>';
 		echo '</div>';
 		echo '</div>';
 
@@ -395,6 +395,7 @@ class TI_About_Render {
 		}
 		$footer_data = $this->tabs['footer_messages']['messages'];
 		echo '<div class="about-sidebar">';
+		do_action( 'ti-about-before-sidebar-content' );
 		foreach ( $footer_data as $data ) {
 			$heading   = ! empty( $data['heading'] ) ? $data['heading'] : '';
 			$text      = ! empty( $data['text'] ) ? $data['text'] : '';
@@ -419,6 +420,7 @@ class TI_About_Render {
 			echo '</div>';
 			echo '</div>';
 		}
+		do_action( 'ti-about-after-sidebar-content' );
 		echo '</div>';
 	}
 }
