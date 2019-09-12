@@ -15,15 +15,7 @@
   align-items: center;
   justify-content: center;
 }
-#changelog .changelog{
-  margin-left:30px;
-}
-#changelog .changelog h2{
-  text-align: left;
-  margin-left: -20px;
-  font-size: 20px;
-  font-weight: 500;
-}
+
 .ti-about-wrap {
   display: none;
   position: relative;
@@ -36,6 +28,7 @@
   @import "components/tabs";
   @import "components/plugins-tab";
   @import "components/free_pro_table";
+  @import "components/changelog";
 
 
   @media (max-width: 1200px) {
