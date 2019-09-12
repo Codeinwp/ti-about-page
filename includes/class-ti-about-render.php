@@ -330,7 +330,7 @@ class TI_About_Render {
 					'changes' => array(),
 				);
 			} else {
-				$release['changes'][] = $changelog_line;
+				$release['changes'][] = str_replace( '*', '&bull;', $changelog_line );
 			}
 		}
 
