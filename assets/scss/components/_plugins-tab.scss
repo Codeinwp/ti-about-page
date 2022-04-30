@@ -13,6 +13,26 @@
     flex-direction: column;
     justify-content: flex-start;
     width: 49%;
+    position: relative;
+  }
+  .external-link{
+    vertical-align: middle;
+    padding: 10px 0;
+    display: block;
+    svg{
+      vertical-align: bottom;
+      fill: #2271b1;
+    }
+  }
+  .premium-label{
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px 20px;
+    background: #01a3e7;
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
   }
   .title-action-wrapper {
     padding: 15px 20px 5px 20px;
