@@ -1,6 +1,6 @@
 {
   "name": "ti-about-page",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "dependencies": {
     "sticky-js": "^1.2.0"
   },

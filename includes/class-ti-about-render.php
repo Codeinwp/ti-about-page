@@ -155,7 +155,8 @@ class TI_About_Render {
 					$this->render_recommended_actions( $tab_data['plugins'] );
 					break;
 				case 'plugins':
-					$this->render_plugins_tab( $tab_data['plugins'] );
+                    $external_plugins = isset( $tab_data['external'] ) ? $tab_data['external'] : array();
+					$this->render_plugins_tab( $tab_data['plugins'], $external_plugins );
 					break;
 				case 'changelog':
 					$this->render_changelog();
@@ -249,12 +250,69 @@ class TI_About_Render {
 		return $call_api;
 	}
 
+    /**
+     * Render the plugin card in recommended plugins tab.
+     *
+     * @param string $plugin_slug Plugin slug.
+     * @param array $data Plugin data.
+     */
+    private function render_plugin_card( $plugin_slug, $data ) {
+
+
+        echo '<div class="plugin_box">';
+
+        if( isset( $data['premium'] ) && $data['premium'] === true ){
+            echo '<span class="premium-label">Premium</span>';
+        }
+        if ( isset( $data['banners']['low'] ) ){
+            echo '<img class="plugin-banner" src="' . esc_attr( $data['banners']['low'] ) . '">';
+        }
+        echo '<div class="title-action-wrapper">';
+        echo '<span class="plugin-name">' . esc_html( $data['name'] ) . '</span>';
+        echo '<span class="plugin-desc">' . esc_html( $data['short_description'] ) . '</span>';
+        echo '</div>';
+        echo '<div class="plugin-box-footer">';
+        echo '<div class="button-wrap">';
+        if ( isset( $data['url'] ) ){
+            echo '<a class="external-link" href="' . esc_url( $data['url'] ) . '" target="_blank" rel="external noreferrer noopener">';
+            echo esc_html__('Learn More', 'textdomain' );
+            echo '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" class="components-external-link__icon css-6wogo1-StyledIcon etxm6pv0" role="img" aria-hidden="true" focusable="false"><path d="M18.2 17c0 .7-.6 1.2-1.2 1.2H7c-.7 0-1.2-.6-1.2-1.2V7c0-.7.6-1.2 1.2-1.2h3.2V4.2H7C5.5 4.2 4.2 5.5 4.2 7v10c0 1.5 1.2 2.8 2.8 2.8h10c1.5 0 2.8-1.2 2.8-2.8v-3.6h-1.5V17zM14.9 3v1.5h3.7l-6.4 6.4 1.1 1.1 6.4-6.4v3.7h1.5V3h-6.3z"></path></svg>';
+            echo '</a>';
+        } else {
+            echo Ti_About_Plugin_Helper::instance()->get_button_html( $plugin_slug );
+        }
+        echo '</div>';
+        echo '<div class="version-wrapper">';
+        if ( isset( $data['version'] ) ){
+            echo '<span class="version">' . esc_html( $data['version'] ) . '</span>';
+            echo '<span class="separator"> | </span>';
+        }
+        echo  strtok( strip_tags( $data['author'] ), ',' );
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+    }
+
+    /**
+     * Check if the plugin has the required data to be displayed
+     *
+     * @param array $data Plugin data.
+     * @return bool
+     */
+    private function has_required_data( $data ) {
+        $required_data = [ 'banners', 'name', 'short_description', 'author' ];
+        return count( array_filter( $required_data, function ( $element ) use ( $data ) {
+           return ! array_key_exists( $element, $data );
+        } ) ) === 0;
+    }
+
 	/**
 	 * Render plugins tab content.
 	 *
 	 * @param array $plugins_list - list of useful plugins
+     * @param array $external - list of plugins outside wp.org
 	 */
-	private function render_plugins_tab( $plugins_list ) {
+	private function render_plugins_tab( $plugins_list, $external = [] ) {
 
 		if ( empty( $plugins_list ) ) {
 			return;
@@ -263,22 +321,25 @@ class TI_About_Render {
 		echo '<div class="recommended-plugins">';
 
 		foreach ( $plugins_list as $plugin ) {
-			$current_plugin = $this->call_plugin_api( $plugin );
+			$plugin_data = $this->call_plugin_api( $plugin );
+            if ( ! is_object( $plugin_data ) ){
+                continue;
+            }
 
-			echo '<div class="plugin_box">';
-			echo '<img class="plugin-banner" src="' . esc_attr( $current_plugin->banners['low'] ) . '">';
-			echo '<div class="title-action-wrapper">';
-			echo '<span class="plugin-name">' . esc_html( $current_plugin->name ) . '</span>';
-			echo '<span class="plugin-desc">' . esc_html( $current_plugin->short_description ) . '</span>';
-			echo '</div>';
-			echo '<div class="plugin-box-footer">';
-			echo '<div class="button-wrap">';
-			echo Ti_About_Plugin_Helper::instance()->get_button_html( $plugin );
-			echo '</div>';
-			echo '<div class="version-wrapper"><span class="version">' . esc_html( $current_plugin->version ) . '</span><span class="separator"> | </span>' . strtok( strip_tags( $current_plugin->author ), ',' ) . '</div>';
-			echo '</div>';
-			echo '</div>';
+            $plugin_data = get_object_vars( $plugin_data );
+            if ( ! $this->has_required_data( $plugin_data ) ) {
+                continue;
+            }
+
+            $this->render_plugin_card( $plugin, $plugin_data );
 		}
+
+        foreach ( $external as $plugin => $plugin_data ){
+            if ( ! $this->has_required_data( $plugin_data ) ) {
+                continue;
+            }
+            $this->render_plugin_card( $plugin, $plugin_data );
+        }
 
 		echo '</div>';
 	}
