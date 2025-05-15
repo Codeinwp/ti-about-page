@@ -98,9 +98,15 @@
   }
 }
 
-.ti-about-banner:has(.tsdk-banner-cta ) {
-  margin-left: 40px;
-  margin-top: 30px;
+div.ti-about-banner {
+  .themeisle-sale {
+    margin: 0 40px;
+    margin-top: 10px;
+  }
+
+  .themeisle-sale-content p {
+    font-size: small;
+  }
 }
 
 
