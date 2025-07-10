@@ -344,7 +344,7 @@ class TI_About_Render {
         if ( isset( $data['url'] ) ){
             echo '<a class="external-link" href="' . esc_url( $data['url'] ) . '" target="_blank" rel="external noreferrer noopener">';
             echo esc_html__('Learn More', 'textdomain' );
-            echo '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" class="components-external-link__icon css-6wogo1-StyledIcon etxm6pv0" role="img" aria-hidden="true" focusable="false"><path d="M18.2 17c0 .7-.6 1.2-1.2 1.2H7c-.7 0-1.2-.6-1.2-1.2V7c0-.7.6-1.2 1.2-1.2h3.2V4.2H7C5.5 4.2 4.2 5.5 4.2 7v10c0 1.5 1.2 2.8 2.8 2.8h10c1.5 0 2.8-1.2 2.8-2.8v-3.6h-1.5V17zM14.9 3v1.5h3.7l-6.4 6.4 1.1 1.1 6.4-6.4v3.7h1.5V3h-6.3z"></path></svg>';
+            echo $this->get_external_link_icon();
             echo '</a>';
         } else {
             echo Ti_About_Plugin_Helper::instance()->get_button_html( $plugin_slug );
@@ -542,7 +542,7 @@ class TI_About_Render {
 		echo $button['blank'] ? 'target="_blank" rel="external noreferrer noopener" ' : '';
 		echo '>';
 		echo $button['label'];
-		echo $button['blank'] && ! $button['is_button'] ? '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" class="components-external-link__icon css-6wogo1-StyledIcon etxm6pv0" role="img" aria-hidden="true" focusable="false"><path d="M18.2 17c0 .7-.6 1.2-1.2 1.2H7c-.7 0-1.2-.6-1.2-1.2V7c0-.7.6-1.2 1.2-1.2h3.2V4.2H7C5.5 4.2 4.2 5.5 4.2 7v10c0 1.5 1.2 2.8 2.8 2.8h10c1.5 0 2.8-1.2 2.8-2.8v-3.6h-1.5V17zM14.9 3v1.5h3.7l-6.4 6.4 1.1 1.1 6.4-6.4v3.7h1.5V3h-6.3z"></path></svg>' : '';
+		echo $button['blank'] && ! $button['is_button'] ? $this->get_external_link_icon() : '';
 		echo '</a>';
 	}
 
@@ -563,7 +563,7 @@ class TI_About_Render {
 			$link      = ! empty( $data['link'] ) ? $data['link'] : '';
 			$target    = ! empty( $data['blank'] ) ? '_blank' : '_self';
 			$rel_attr  = ! empty( $data['blank'] ) ? 'external noreferrer noopener' : '';
-			$svg_icon  = ! empty( $data['blank'] ) ? '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" class="components-external-link__icon css-6wogo1-StyledIcon etxm6pv0" role="img" aria-hidden="true" focusable="false"><path d="M18.2 17c0 .7-.6 1.2-1.2 1.2H7c-.7 0-1.2-.6-1.2-1.2V7c0-.7.6-1.2 1.2-1.2h3.2V4.2H7C5.5 4.2 4.2 5.5 4.2 7v10c0 1.5 1.2 2.8 2.8 2.8h10c1.5 0 2.8-1.2 2.8-2.8v-3.6h-1.5V17zM14.9 3v1.5h3.7l-6.4 6.4 1.1 1.1 6.4-6.4v3.7h1.5V3h-6.3z"></path></svg>' : '';
+			$svg_icon  = ! empty( $data['blank'] ) ? $this->get_external_link_icon() : '';
 
 			if ( empty( $heading ) && empty( $text ) && ( empty( $link_text ) || empty( $link ) ) ) {
 				continue;
@@ -592,5 +592,12 @@ class TI_About_Render {
 		}
 		do_action( 'ti-about-after-sidebar-content' );
 		echo '</div>';
+	}
+
+	/**
+	 * Get open a link in a new tab icon. 
+	 */
+	private function get_external_link_icon() {
+		return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" class="components-external-link__icon css-6wogo1-StyledIcon etxm6pv0" role="img" aria-hidden="true" focusable="false"><path d="M18.2 17c0 .7-.6 1.2-1.2 1.2H7c-.7 0-1.2-.6-1.2-1.2V7c0-.7.6-1.2 1.2-1.2h3.2V4.2H7C5.5 4.2 4.2 5.5 4.2 7v10c0 1.5 1.2 2.8 2.8 2.8h10c1.5 0 2.8-1.2 2.8-2.8v-3.6h-1.5V17zM14.9 3v1.5h3.7l-6.4 6.4 1.1 1.1 6.4-6.4v3.7h1.5V3h-6.3z"></path></svg>';
 	}
 }
