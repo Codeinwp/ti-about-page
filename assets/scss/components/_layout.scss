@@ -2,6 +2,6 @@
   padding-left: 0;
 }
 
-.error, .notice {
+.error, .notice:not(.themeisle-sale) {
   display: none;
 }
