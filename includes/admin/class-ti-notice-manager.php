@@ -35,12 +35,11 @@ class Ti_Notice_Manager {
 	/**
 	 * Init the OrbitFox instance.
 	 *
-	 * @return Orbit_Fox_Neve_Dropin|null
+	 * @return Ti_Notice_Manager|null
 	 */
 	public static function instance() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
-			self::$instance->init();
 		}
 
 		return self::$instance;
@@ -50,7 +49,6 @@ class Ti_Notice_Manager {
 	 * Drop-in actions
 	 */
 	public function init() {
-		$this->handle_data();
 		add_action( 'admin_notices', array( $this, 'admin_notice' ), defined( 'PHP_INT_MIN' ) ? PHP_INT_MIN : 99999 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_notice_scripts' ) );
 		add_action( 'wp_ajax_ti_about_dismiss_welcome_notice', array( $this, 'remove_notice' ) );
@@ -84,10 +82,12 @@ class Ti_Notice_Manager {
 	}
 
 	/**
-	 * Handle notice data.
+	 * Set the notice data.
+	 * 
+	 * @param array<string, mixed> $data The data
+	 * @return Ti_Notice_Manager
 	 */
-	private function handle_data() {
-
+	public function set_notice_data( $data ) {
 		$default = array(
 			'type'            => 'default',
 			'render_callback' => array( $this, 'render_notice' ),
@@ -95,15 +95,13 @@ class Ti_Notice_Manager {
 			'notice_class'    => '',
 		);
 
-		$about_instance = Ti_About_Page::$instance;
-		$config         = $about_instance->config;
-		$data           = $config['welcome_notice'];
-
 		$notice_data = wp_parse_args( $data, $default );
 		if ( array_key_exists( 'dismiss_option', $notice_data ) ) {
 			self::$dismiss_key = $notice_data['dismiss_option'];
 		}
 		$this->notice_data = wp_parse_args( $data, $default );
+
+		return $this;
 	}
 
 	/**

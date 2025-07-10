@@ -17,6 +17,10 @@ if ( ! class_exists( 'Ti_About_Plugin_Helper' ) ) {
 	require_once 'includes' . DIRECTORY_SEPARATOR . 'class-ti-about-plugin-helper.php';
 }
 
+if ( ! class_exists( 'Ti_Notice_Manager' ) ) {
+	require_once 'includes' . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'class-ti-notice-manager.php';
+}
+
 if ( ! defined( 'TI_ABOUT_PAGE_DIR' ) ) {
 	define( 'TI_ABOUT_PAGE_DIR', get_template_directory() . '/vendor/codeinwp/ti-about-page/' );
 }

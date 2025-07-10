@@ -75,11 +75,6 @@ class Ti_About_Page {
 				'update_recommended_plugins_visibility',
 			)
 		);
-
-		if ( ! class_exists( 'Ti_Notice_Manager' ) && isset( $this->config['welcome_notice'] ) ) {
-			require_once 'includes' . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'class-ti-notice-manager.php';
-			add_action( 'init', array( Ti_Notice_Manager::instance(), 'init' ) );
-		}
 	}
 
 	/**
