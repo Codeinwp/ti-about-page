@@ -217,6 +217,8 @@ class TI_About_Render {
 
 			echo '<div id="' . esc_attr( $slug ) . '" class="' . esc_attr( $tab_data['type'] ) . ' tab-content ' . ( $slug === 'getting_started' ? 'active' : '' ) . '">';
 
+			do_action( 'ti_about_before_' . $slug . '_tab_content' );
+
 			switch ( $tab_data['type'] ) {
 
 				case 'recommended_actions':
@@ -233,6 +235,8 @@ class TI_About_Render {
 					$this->render_default_tab( $tab_data );
 					break;
 			}
+
+			do_action( 'ti_about_after_' . $slug . '_tab_content' );
 
 			echo '</div>';
 		}
